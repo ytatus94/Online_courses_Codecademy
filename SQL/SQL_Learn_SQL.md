@@ -75,7 +75,12 @@ SELECT * FROM celebs;
 ```
 
 * **ALTER TABLE** changes an existing table.
-  
+
+```SQL
+ALTER TABLE table_name ADD COLUMN
+column_1 data_type;
+```
+
 ```SQL
 ALTER TABLE celebs ADD COLUMN
 twitter_handle TEXT;
@@ -131,7 +136,7 @@ SELECT * FROM movies;
 SELECT name, genre
 FROM movies;
 
-select name, genre, year
+SELECT name, genre, year
 FROM movies;
 ```
 
@@ -484,7 +489,7 @@ FROM movies
 GROUP BY 1, 2
 HAVING COUNT(name) > 10;
 
-SELECT price, count(*),
+SELECT price, COUNT(*),
   ROUND(AVG(downloads))
 FROM fake_apps
 GROUP BY price;
@@ -499,7 +504,7 @@ HAVING COUNT(*) > 9;
 # Learn SQL - Multiple Tables
 
 * **JOIN** will combine rows from different tables if the join condition is true.
-  * 兩個表個中的欄位名稱可能會重複，用 `table_name.column_name` 可以指明是哪個表格的
+  * 兩個表個中的欄位名稱可能會重複，用 `table_name.column_name` 可以指明是哪個表格的欄位
   * 預設 `JOIN` 就指的是 *inner join*，只有兩個表格都有的列才會結合再一起
 
 ```SQL
@@ -553,7 +558,8 @@ JOIN students
 ```
 
 * **LEFT JOIN** will return every row in the left table, and if the join condition is not met, `NULL` values are used to fill in the columns from the right table.
-  * 左邊的表格全部保留下來，右邊的表格只有在列與左邊表格相同時才結合
+  * 左邊的表格全部保留下來，右邊的表格只有在列與左邊表格相同時才結合。
+  * 左邊表格有但是右邊表格沒有的列，結合後顯示 `NULL`
 
 ```SQL
 SELECT *
