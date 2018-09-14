@@ -425,7 +425,7 @@ SELECT
 FROM gameplays AS g1
 LEFT JOIN gameplays AS g2
   ON g1.user_id = g2.user_id
-  AND date(g1.created_at) = date(datetime(g2.created_at, '-1 day'))
+  AND date(g1.created_at) = date(DATETIME(g2.created_at, '-1 day'))
 GROUP BY 1
 ORDER BY 1
 LIMIT 100;
@@ -441,7 +441,7 @@ SELECT
 FROM gameplays AS g1
 LEFT JOIN gameplays AS g2
   ON g1.user_id = g2.user_id
-  AND date(g1.created_at) = date(datetime(g2.created_at, '-1 day'))
+  AND date(g1.created_at) = date(DATETIME(g2.created_at, '-1 day'))
 GROUP BY 1
 ORDER BY 1
 LIMIT 100;

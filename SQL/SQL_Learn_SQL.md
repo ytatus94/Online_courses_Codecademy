@@ -367,7 +367,7 @@ SELECT name,
 FROM movies;
 ```
     
-# Learn SQL - Aggregate Functions
+## Aggregate Functions
 
 * **COUNT()**: count the number of rows
 
@@ -501,7 +501,7 @@ GROUP BY price
 HAVING COUNT(*) > 9;
 ```
     
-# Learn SQL - Multiple Tables
+## Multiple Tables
 
 * **JOIN** will combine rows from different tables if the join condition is true.
   * 兩個表個中的欄位名稱可能會重複，用 `table_name.column_name` 可以指明是哪個表格的欄位
