@@ -169,6 +169,7 @@ FROM flights;
 * **EXCEPT** 列出第一個 SELECT 的結果中但是不包含在第二個的 SELECT 結果內的
 
 ### Example 1.
+
 ```SQL
 SELECT brand
 FROM legacy_products
@@ -334,6 +335,7 @@ GROUP BY state;
 SELECT DATETIME(manufacture_time)
 FROM baked_goods;
 ```
+
 ```SQL
 SELECT DATETIME(delivery_time) 
 FROM baked_goods;
@@ -354,6 +356,7 @@ SELECT TIME(manufacture_time),
 FROM baked_goods
 GROUP BY TIME(manufacture_time);
 ```
+
 ```SQL
 SELECT DATE(delivery_time),
        count(*) as count_baked_goods
@@ -391,6 +394,7 @@ FROM baked_goods;
 SELECT ROUND(ingredients_cost, 4) as rounded_cost
 FROM baked_goods;
 ```
+
 ```SQL
 SELECT ROUND(distance, 2) as distance_from_market
 FROM bakeries;
@@ -405,6 +409,7 @@ FROM bakeries;
 SELECT id, MAX(ingredients_cost, packaging_cost)
 FROM baked_goods;
 ```
+
 ```SQL
 SELECT id, MIN(cook_time, cool_down_time)
 FROM baked_goods;
@@ -418,6 +423,7 @@ FROM baked_goods;
 SELECT city || ' ' || state as location
 FROM bakeries;
 ```
+
 ```SQL
 SELECT first_name || ' ' || last_name as full_name
 FROM bakeries;
@@ -430,6 +436,7 @@ FROM bakeries;
 SELECT id, REPLACE(ingredients,'_',' ') as item_ingredients
 from baked_goods;
 ```
+
 ```SQL
 SELECT REPLACE(ingredients,'enriched_',' ') as item_ingredients
 FROM baked_goods;
