@@ -497,3 +497,172 @@ HAVING COUNT(*) > 9;
 ```
     
 # Learn SQL - Multiple Tables
+
+* **JOIN** will combine rows from different tables if the join condition is true.
+  * 兩個表個中的欄位名稱可能會重複，用 `table_name.column_name` 可以指明是哪個表格的
+  * 預設 `JOIN` 就指的是 *inner join*，只有兩個表格都有的列才會結合再一起
+
+```SQL
+SELECT *
+FROM orders
+JOIN customers
+  ON orders.customer_id = customers.customer_id;
+```
+
+```SQL
+SELECT orders.order_id,
+   customers.customer_name
+FROM orders
+JOIN customers
+  ON orders.customer_id = customers.customer_id;
+```
+
+```SQL
+-- First query
+SELECT *
+FROM orders
+JOIN subscriptions
+  ON orders.subscription_id = subscriptions.subscription_id;
+
+-- Second query
+SELECT *
+FROM orders
+JOIN subscriptions
+  ON orders.subscription_id = subscriptions.subscription_id
+WHERE subscriptions.description = 'Fashion Magazine';
+```
+
+```SQL
+SELECT COUNT(*)
+FROM newspaper;
+
+SELECT COUNT(*)
+FROM online;
+
+SELECT COUNT(*)
+FROM newspaper
+JOIN online
+  ON newspaper.id = online.id;
+```
+
+```SQL
+SELECT *
+FROM classes
+JOIN students
+  ON classes.id = students.class_id;
+```
+
+* **LEFT JOIN** will return every row in the left table, and if the join condition is not met, `NULL` values are used to fill in the columns from the right table.
+  * 左邊的表格全部保留下來，右邊的表格只有在列與左邊表格相同時才結合
+
+```SQL
+SELECT *
+FROM table1
+LEFT JOIN table2
+  ON table1.c2 = table2.c2;
+```
+
+```SQL
+-- First query
+SELECT *
+FROM newspaper
+LEFT JOIN online
+	ON newspaper.id = online.id;
+  
+-- Second query
+SELECT *
+FROM newspaper
+LEFT JOIN online
+	ON newspaper.id = online.id
+WHERE online.id IS NULL;
+```
+
+* *Primary key* is a column that serves a unique identifier for the rows in the table.
+
+* *Foreign key* is a column that contains the primary key to another table.
+
+* **CROSS JOIN** lets us combine all rows of one table with all rows of another table.
+  * 左邊表格每一列，會與右邊表格每一列配對，結合起來。如果左邊有兩列右邊有三列，`CROSS JOIN` 之後的表格就會有 2 x 3 = 6 列
+
+```SQL
+SELECT shirts.shirt_color,
+   pants.pants_color
+FROM shirts
+CROSS JOIN pants;
+```
+
+```SQL
+-- First query
+SELECT COUNT(*)
+FROM newspaper
+WHERE start_month <= 3
+	AND end_month >= 3;
+  
+-- Second query  
+SELECT *
+FROM newspaper
+CROSS JOIN months;
+
+-- Third query
+SELECT *
+FROM newspaper
+CROSS JOIN months
+WHERE start_month <= month
+	AND end_month >= month;
+
+-- Fourth query
+SELECT months.month,
+	COUNT(*)
+FROM newspaper
+CROSS JOIN months
+WHERE start_month < month
+	AND end_month > month
+GROUP BY months.month;
+```
+
+* **UNION** stacks one dataset on top of another.
+  * 將兩表格上下疊再一起，要做 `UNION` 時，兩個表格的欄位要一樣
+
+```SQL
+SELECT *
+FROM table1
+UNION
+SELECT *
+FROM table2;
+```
+
+```SQL
+SELECT *
+FROM newspaper
+UNION
+SELECT *
+FROM online;
+```
+
+* **WITH** allows us to define one or more temporary tables that can be used in the final query.
+  * `WITH` 內先做另一個查詢，產生一個暫時的表格。可以將暫時的表格與其他表格做 `JOIN` 再做其他查詢
+
+```SQL
+WITH previous_results AS (
+   SELECT ...
+   ...
+   ...
+   ...
+)
+SELECT *
+FROM previous_results
+JOIN customers
+  ON _____ = _____;
+```
+
+```SQL
+WITH previous_query AS (
+  SELECT customer_id, COUNT(subscription_id) AS subscriptions
+  FROM orders
+  GROUP BY customer_id
+)
+SELECT customers.customer_name, previous_query.subscriptions
+FROM previous_query
+JOIN customers
+  ON previous_query.customer_id = customers.customer_id;
+```
