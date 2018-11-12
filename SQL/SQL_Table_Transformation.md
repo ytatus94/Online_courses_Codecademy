@@ -220,7 +220,7 @@ SELECT category FROM new_products;
 ## Conditional Aggregates
 
 ### Example 1.
-計算 flights 表格共有幾筆資料
+計算 `flights` 表格共有幾筆資料
 
 ```SQL
 SELECT COUNT(*) FROM flights;
@@ -421,7 +421,7 @@ FROM baked_goods;
 
 用 `|| ' ' ||` 來連結字串
 
-在這邊 `||` 就相當於 python 字串相加時的 `+`，`string1 || ' ' || string2` 就相當於 python 中的 string1 + ' ' + string2
+在這邊 `||` 就相當於 python 字串相加時的 `+`，`string1 || ' ' || string2` 就相當於 python 中的 `string1 + ' ' + string2`
 
 ```SQL
 SELECT city || ' ' || state AS location
