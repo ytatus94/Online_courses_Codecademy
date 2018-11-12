@@ -442,6 +442,6 @@ FROM baked_goods;
 ```
 
 ```SQL
-SELECT REPLACE(ingredients,'enriched_',' ') as item_ingredients
+SELECT REPLACE(ingredients,'enriched_',' ') AS item_ingredients
 FROM baked_goods;
 ```
