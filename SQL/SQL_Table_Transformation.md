@@ -10,6 +10,7 @@
 *  The order of operations in a correlated subquery is as follows:
   * A row is processed in the outer query.
   * Then, for that particular row in the outer query, the subquery is executed.
+* Subqueries 可以放在 SELECT 裡面, FROM 裡面, WHERE 裡面 
 
 ### Example 1.
 從 flights 表格中選擇 10 筆資料
@@ -317,7 +318,7 @@ GROUP BY origin;
 
 ```SQL
 SELECT state,
-       100.0 * sum(CASE WHEN elevation >= 2000 THEN 1 ELSE 0 END) / count(*)  as percentage_high_elevation_airports
+       100.0 * sum(CASE WHEN elevation >= 2000 THEN 1 ELSE 0 END) / count(*) AS percentage_high_elevation_airports
 FROM airports
 GROUP BY state;
 ```
@@ -343,23 +344,20 @@ FROM baked_goods;
 用 DATE() 只顯示日期
 
 ```SQL
-SELECT DATE(manufacture_time),
-       COUNT(*) AS count_baked_goods
+SELECT DATE(manufacture_time), COUNT(*) AS count_baked_goods
 FROM baked_goods
 GROUP BY DATE(manufacture_time);
 ```
 用 TIME() 只顯示時間
 
 ```SQL
-SELECT TIME(manufacture_time),
-       COUNT(*) AS count_baked_goods
+SELECT TIME(manufacture_time), COUNT(*) AS count_baked_goods
 FROM baked_goods
 GROUP BY TIME(manufacture_time);
 ```
 
 ```SQL
-SELECT DATE(delivery_time),
-       COUNT(*) AS count_baked_goods
+SELECT DATE(delivery_time), COUNT(*) AS count_baked_goods
 FROM baked_goods
 GROUP BY DATE(delivery_time);
 ```
