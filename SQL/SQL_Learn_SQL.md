@@ -107,7 +107,8 @@ SELECT * FROM celebs;
 CREATE TABLE awards (
   id INTEGER PRIMARY KEY,
   recipient TEXT NOT NULL,
-  award_name TEXT DEFAULT "Grammy");
+  award_name TEXT DEFAULT "Grammy"
+);
 ```
 
 ```SQL
@@ -267,19 +268,19 @@ WHERE imdb_rating IS NULL;
 SELECT * 
 FROM movies
 WHERE year BETWEEN 1990 AND 1999
-   AND genre = 'romance';
+  AND genre = 'romance';
 ```
     
 ```SQL
 SELECT *
 FROM movies
 WHERE year BETWEEN 1970 AND 1979
-   AND imdb_rating > 8;
+  AND imdb_rating > 8;
    
 SELECT *
 FROM movies
 WHERE year < 1985
-   AND genre="horror";
+  AND genre="horror";
 ```
     
   * **OR**
@@ -427,8 +428,7 @@ FROM fake_apps;
   * `GROUP BY` 放在 `WHERE` 之後，`ORDER BY`, `LIMIT` 之前
   
 ```SQL
-SELECT year,
- AVG(imdb_rating)
+SELECT year, AVG(imdb_rating)
 FROM movies
 GROUP BY year
 ORDER BY year;
@@ -450,8 +450,7 @@ GROUP BY category;
   * `GROUP BY` 的東西也可以做計算
   
 ```SQL
-SELECT ROUND(imdb_rating),
-  COUNT(name)
+SELECT ROUND(imdb_rating), COUNT(name)
 FROM movies
 GROUP BY ROUND(imdb_rating)
 ORDER BY ROUND(imdb_rating);
@@ -460,8 +459,7 @@ ORDER BY ROUND(imdb_rating);
   * 可以用數字表示，數字編號是看 `SELECT` 那行，從 1 開始
   
 ```SQL
-SELECT ROUND(imdb_rating),
-  COUNT(name)
+SELECT ROUND(imdb_rating), COUNT(name)
 FROM movies
 GROUP BY 1
 ORDER BY 1;
@@ -469,9 +467,7 @@ ORDER BY 1;
 `ROUND(imdb_rating)` 是 1，`COUNT(name)` 是 2
 
 ```SQL
-SELECT category, 
-  price,
-  AVG(downloads)
+SELECT category, price, AVG(downloads)
 FROM fake_apps
 GROUP BY 1, 2;
 ```
@@ -482,20 +478,16 @@ GROUP BY 1, 2;
   * `HAVING` 放在 `GROUP BY` 之後，`ORDER BY`, `LIMIT` 之前
   
 ```SQL
-SELECT year,
-  genre,
-  COUNT(name)
+SELECT year, genre, COUNT(name)
 FROM movies
 GROUP BY 1, 2
 HAVING COUNT(name) > 10;
 
-SELECT price, COUNT(*),
-  ROUND(AVG(downloads))
+SELECT price, COUNT(*), ROUND(AVG(downloads))
 FROM fake_apps
 GROUP BY price;
 
-SELECT price, 
-  ROUND(AVG(downloads))
+SELECT price, ROUND(AVG(downloads))
 FROM fake_apps
 GROUP BY price
 HAVING COUNT(*) > 9;
@@ -515,8 +507,7 @@ JOIN customers
 ```
 
 ```SQL
-SELECT orders.order_id,
-   customers.customer_name
+SELECT orders.order_id, customers.customer_name
 FROM orders
 JOIN customers
   ON orders.customer_id = customers.customer_id;
@@ -573,13 +564,13 @@ LEFT JOIN table2
 SELECT *
 FROM newspaper
 LEFT JOIN online
-	ON newspaper.id = online.id;
+  ON newspaper.id = online.id;
   
 -- Second query
 SELECT *
 FROM newspaper
 LEFT JOIN online
-	ON newspaper.id = online.id
+  ON newspaper.id = online.id
 WHERE online.id IS NULL;
 ```
 
@@ -591,8 +582,7 @@ WHERE online.id IS NULL;
   * 左邊表格每一列，會與右邊表格每一列配對，結合起來。如果左邊有兩列右邊有三列，`CROSS JOIN` 之後的表格就會有 2 x 3 = 6 列
 
 ```SQL
-SELECT shirts.shirt_color,
-   pants.pants_color
+SELECT shirts.shirt_color, pants.pants_color
 FROM shirts
 CROSS JOIN pants;
 ```
@@ -602,7 +592,7 @@ CROSS JOIN pants;
 SELECT COUNT(*)
 FROM newspaper
 WHERE start_month <= 3
-	AND end_month >= 3;
+  AND end_month >= 3;
   
 -- Second query  
 SELECT *
@@ -614,7 +604,7 @@ SELECT *
 FROM newspaper
 CROSS JOIN months
 WHERE start_month <= month
-	AND end_month >= month;
+  AND end_month >= month;
 
 -- Fourth query
 SELECT months.month,

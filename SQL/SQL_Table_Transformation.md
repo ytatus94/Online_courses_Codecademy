@@ -81,16 +81,16 @@ WHERE origin in (
 SELECT a.dep_month,
        a.dep_day_of_week,
        AVG(a.flight_count) AS average_flights
-  FROM (
-        SELECT dep_month,
-               dep_day_of_week,
-               dep_date,
-               COUNT(*) AS flight_count
-        FROM flights
-        GROUP BY 1,2,3
-       ) a
- GROUP BY 1,2
- ORDER BY 1,2;
+FROM (
+      SELECT dep_month,
+             dep_day_of_week,
+             dep_date,
+             COUNT(*) AS flight_count
+      FROM flights
+      GROUP BY 1,2,3
+     ) a
+GROUP BY 1,2
+ORDER BY 1,2;
 ```
 找某一個月份的某一個 weekday 的平均的飛行距離.
 
@@ -102,13 +102,13 @@ SELECT a.dep_month,
        a.dep_day_of_week,
        AVG(a.flight_distance) AS average_distance
 FROM (
-        SELECT dep_month,
-               dep_day_of_week,
-               dep_date,
-               sum(distance) AS flight_distance
-        FROM flights
-        GROUP BY 1,2,3
-       ) a
+      SELECT dep_month,
+             dep_day_of_week,
+             dep_date,
+             sum(distance) AS flight_distance
+      FROM flights
+      GROUP BY 1,2,3
+     ) a
 GROUP BY 1,2
 ORDER BY 1,2;
 ```
@@ -181,14 +181,14 @@ FROM new_products;
 ### Example 2.
 
 ```SQL
-SELECT count(*) FROM (
+SELECT COUNT(*) FROM (
   SELECT id, sale_price FROM order_items
   UNION ALL
   SELECT id, sale_price FROM order_items_historic) as a;
 ```
 
 ```SQL
-SELECT id, avg(a.sale_price) FROM (
+SELECT id, AVG(a.sale_price) FROM (
   SELECT id, sale_price FROM order_items
   UNION ALL
   SELECT id, sale_price FROM order_items_historic) AS a 
@@ -229,7 +229,7 @@ SELECT COUNT(*) FROM flights;
 
 ```SQL
 SELECT COUNT(*) FROM flights
-WHERE arr_time IS NOT NULL and destination = 'ATL';
+WHERE arr_time IS NOT NULL AND destination = 'ATL';
 ```
 
 ### Example 3.
@@ -266,14 +266,14 @@ GROUP BY 1;
 
 ```SQL
 SELECT state, 
-       COUNT(CASE WHEN elevation >= 2000 THEN 1 ELSE NULL END) as count_high_elevation_aiports 
+       COUNT(CASE WHEN elevation >= 2000 THEN 1 ELSE NULL END) AS count_high_elevation_aiports 
 FROM airports 
 GROUP BY state;
 ```
 
 ```SQL
 SELECT state, 
-       COUNT(CASE WHEN elevation < 1000 THEN 1 ELSE NULL END) as count_low_elevation_airports 
+       COUNT(CASE WHEN elevation < 1000 THEN 1 ELSE NULL END) AS count_low_elevation_airports 
 FROM airports 
 GROUP BY state;
 ```
@@ -283,16 +283,16 @@ GROUP BY state;
 
 ```SQL
 SELECT origin,
-       sum(distance) as total_flight_distance,
-       sum(CASE WHEN carrier = 'UA' THEN distance ELSE 0 END) as total_united_flight_distance 
+       SUM(distance) AS total_flight_distance,
+       SUM(CASE WHEN carrier = 'UA' THEN distance ELSE 0 END) AS total_united_flight_distance 
 FROM flights 
 GROUP BY origin;
 ```
 
 ```SQL
 SELECT origin,
-       sum(distance) as total_flight_distance,
-       sum(CASE WHEN carrier = 'DL' THEN distance ELSE 0 END) as total_delta_flight_distance 
+       SUM(distance) AS total_flight_distance,
+       SUM(CASE WHEN carrier = 'DL' THEN distance ELSE 0 END) AS total_delta_flight_distance 
 FROM flights 
 GROUP BY origin;
 ```
@@ -302,14 +302,14 @@ GROUP BY origin;
 
 ```SQL
 SELECT origin, 
-       100.0*(sum(CASE WHEN carrier = 'UN' THEN distance ELSE 0 END)/sum(distance)) as percentage_flight_distance_from_united
+       100.0*(SUM(CASE WHEN carrier = 'UN' THEN distance ELSE 0 END)/SUM(distance)) AS percentage_flight_distance_from_united
 FROM flights 
 GROUP BY origin;
 ```
 
 ```SQL
 SELECT origin,
-       100.0*(sum(CASE WHEN carrier = 'DL' THEN distance ELSE 0 END)/sum(distance)) as percentage_flight_distance_from_delta
+       100.0*(SUM(CASE WHEN carrier = 'DL' THEN distance ELSE 0 END)/SUM(distance)) AS percentage_flight_distance_from_delta
 FROM flights
 GROUP BY origin;
 ```
@@ -344,7 +344,7 @@ FROM baked_goods;
 
 ```SQL
 SELECT DATE(manufacture_time),
-       count(*) as count_baked_goods
+       COUNT(*) AS count_baked_goods
 FROM baked_goods
 GROUP BY DATE(manufacture_time);
 ```
@@ -352,14 +352,14 @@ GROUP BY DATE(manufacture_time);
 
 ```SQL
 SELECT TIME(manufacture_time),
-       count(*) as count_baked_goods
+       COUNT(*) AS count_baked_goods
 FROM baked_goods
 GROUP BY TIME(manufacture_time);
 ```
 
 ```SQL
 SELECT DATE(delivery_time),
-       count(*) as count_baked_goods
+       COUNT(*) AS count_baked_goods
 FROM baked_goods
 GROUP BY DATE(delivery_time);
 ```
@@ -374,13 +374,13 @@ DATETIME(time1, '+3 hours', '40 minutes', '2 days');
 傳回 `manufacture_time` 之後的 1 天 2 小時 30 分鐘
 
 ```SQL
-SELECT DATETIME(manufacture_time, '+2 hours', '30 minutes', '1 day') as inspection_time
+SELECT DATETIME(manufacture_time, '+2 hours', '30 minutes', '1 day') AS inspection_time
 FROM baked_goods;
 ```
 傳回 `delivery_time` 之後的 2 天 5 小時 20 分鐘
 
 ```SQL
-SELECT DATETIME(delivery_time, '+5 hours', '20 minutes', '2 days') as package_time
+SELECT DATETIME(delivery_time, '+5 hours', '20 minutes', '2 days') AS package_time
 FROM baked_goods;
 ```
 
@@ -391,12 +391,12 @@ FROM baked_goods;
 * SELECT ROUND(number, precision); 傳回四捨五入後的結果
 
 ```SQL
-SELECT ROUND(ingredients_cost, 4) as rounded_cost
+SELECT ROUND(ingredients_cost, 4) AS rounded_cost
 FROM baked_goods;
 ```
 
 ```SQL
-SELECT ROUND(distance, 2) as distance_from_market
+SELECT ROUND(distance, 2) AS distance_from_market
 FROM bakeries;
 ```
 
@@ -420,12 +420,12 @@ FROM baked_goods;
 用 `|| ' ' ||` 來連結字串
 
 ```SQL
-SELECT city || ' ' || state as location
+SELECT city || ' ' || state AS location
 FROM bakeries;
 ```
 
 ```SQL
-SELECT first_name || ' ' || last_name as full_name
+SELECT first_name || ' ' || last_name AS full_name
 FROM bakeries;
 ```
 
@@ -433,8 +433,8 @@ FROM bakeries;
 用 `REPLACE(string,from_string,to_string)` 來取代字串
 
 ```SQL
-SELECT id, REPLACE(ingredients,'_',' ') as item_ingredients
-from baked_goods;
+SELECT id, REPLACE(ingredients,'_',' ') AS item_ingredients
+FROM baked_goods;
 ```
 
 ```SQL
