@@ -7,20 +7,20 @@
 * Subquery 分成兩種
   * A non-correlated subquery：inner 和 outer query 互相獨立
   * A correlated subquery：inner 和 outer query 相關
-*  The order of operations in a correlated subquery is as follows:
+* The order of operations in a correlated subquery is as follows:
   * A row is processed in the outer query.
   * Then, for that particular row in the outer query, the subquery is executed.
 * Subqueries 可以放在 SELECT 裡面, FROM 裡面, WHERE 裡面 
 
 ### Example 1.
-從 flights 表格中選擇 10 筆資料
+從 `flights` 表格中選擇 10 筆資料
 
 ```SQL
 SELECT * 
-FROM Flights
+FROM flights
 LIMIT 10;
 ```
-從 airport 表格中選擇海拔高於 2000m 的
+從 `airports` 表格中選擇海拔高於 2000m 的
 
 ```SQL
 SELECT code 
@@ -51,7 +51,7 @@ WHERE origin in (
 ```
 
 ### Example 2.
-選擇來自於機場種類是 SEAPLANE_BASE 的機場的飛機
+選擇來自於機場種類 (`fac_type`) 是 `SEAPLANE_BASE` 的機場的飛機
 
 ```SQL
 SELECT * 
@@ -61,7 +61,7 @@ WHERE origin in (
     FROM airports 
     WHERE fac_type = 'SEAPLANE_BASE');
 ```
-選擇來自於機場的 Federal Aviation Administration region 是 ASO 的機場的飛機
+選擇來自於機場的 Federal Aviation Administration region (`faa_region`) 是 `ASO` 的機場的飛機
 
 ```SQL
 SELECT * 
@@ -137,6 +137,7 @@ WHERE distance < (
 ```
 
 ### Example 5.
+假設 `flights.id` 是遞增的，那下面的方式可以顯示同一家航空公司的第幾架次班機。
 
 ```SQL
 SELECT carrier, id,
@@ -147,6 +148,8 @@ SELECT carrier, id,
      AS flight_sequence_number
 FROM flights;
 ```
+
+假設 `flights.id` 是遞增的，那下面的方式可以顯示同一個機場的第幾架次班機。
 
 ```SQL
 SELECT origin, id,
@@ -162,12 +165,12 @@ FROM flights;
 * Merge 表格有兩種方式：
   1. Merge the rows 是用 **JOIN**
   2. Merge the columns 是用 **UNION**
-     * UNION 就是把一個表格疊在另一個上面
-     * 用 UNION 時，SELECT 列出的欄位名字與順序要相同
-     * UNION 只選出 distinct values
+     * `UNION` 就是把一個表格疊在另一個上面
+     * 用 `UNION` 時，`SELECT` 列出的欄位名字與順序要相同
+     * `UNION` 只選出 distinct values
      * **UNION ALL** 會保留 duplicate value
-* **INTERSECT** 列出兩個 SELECT 共同的結果
-* **EXCEPT** 列出第一個 SELECT 的結果中但是不包含在第二個的 SELECT 結果內的
+* **INTERSECT** 列出兩個 `SELECT` 共同的結果
+* **EXCEPT** 列出第一個 `SELECT` 的結果中但是不包含在第二個的 `SELECT` 結果內的
 
 ### Example 1.
 
@@ -185,7 +188,7 @@ FROM new_products;
 SELECT COUNT(*) FROM (
   SELECT id, sale_price FROM order_items
   UNION ALL
-  SELECT id, sale_price FROM order_items_historic) as a;
+  SELECT id, sale_price FROM order_items_historic) AS a;
 ```
 
 ```SQL
@@ -217,7 +220,7 @@ SELECT category FROM new_products;
 ## Conditional Aggregates
 
 ### Example 1.
-計算 flight 表格共有幾筆資料
+計算 flights 表格共有幾筆資料
 
 ```SQL
 SELECT COUNT(*) FROM flights;
@@ -226,7 +229,7 @@ SELECT COUNT(*) FROM flights;
 ### Example 2.
 * 用 **IS NULL**, **IS NOT NULL** 來判斷是否為空
 
-計算有幾筆資料的 `arr_time` 不是空的，且目的地是 ATL
+計算有幾筆資料的 `arr_time` 不是空的，且目的地是 `ATL`
 
 ```SQL
 SELECT COUNT(*) FROM flights
@@ -238,6 +241,7 @@ WHERE arr_time IS NOT NULL AND destination = 'ATL';
 
 * 一定要有 **END**
 * **ELSE** 可有可不有，沒有時就是 NULL
+* 可以寫在 `SELECT` 裡面，aggregation function 裡面
 
 ```SQL
 SELECT
@@ -341,14 +345,14 @@ FROM baked_goods;
 SELECT DATETIME(delivery_time) 
 FROM baked_goods;
 ```
-用 DATE() 只顯示日期
+用 `DATE()` 只顯示日期
 
 ```SQL
 SELECT DATE(manufacture_time), COUNT(*) AS count_baked_goods
 FROM baked_goods
 GROUP BY DATE(manufacture_time);
 ```
-用 TIME() 只顯示時間
+用 `TIME()` 只顯示時間
 
 ```SQL
 SELECT TIME(manufacture_time), COUNT(*) AS count_baked_goods
@@ -384,9 +388,9 @@ FROM baked_goods;
 
 ### Example 3.
 
-* SELECT (number1 + number2); 傳回相加的結果，可以用加減乘除
-* SELECT CAST(number1 AS REAL) / number3; 先將 number1 轉換成 REAL 型態
-* SELECT ROUND(number, precision); 傳回四捨五入後的結果
+* `SELECT (number1 + number2);` 傳回相加的結果，可以用加減乘除
+* `SELECT CAST(number1 AS REAL) / number3;` 先將 `number1` 轉換成 `REAL` 型態
+* `SELECT ROUND(number, precision);` 傳回四捨五入後的結果
 
 ```SQL
 SELECT ROUND(ingredients_cost, 4) AS rounded_cost
@@ -400,8 +404,8 @@ FROM bakeries;
 
 ### Example 4.
 
-* MAX(n1,n2,n3,...): 傳回最大值
-* MIN(n1,n2,n3,...): 傳回最小值
+* `MAX(n1,n2,n3,...)`: 傳回最大值
+* `MIN(n1,n2,n3,...)`: 傳回最小值
 
 ```SQL
 SELECT id, MAX(ingredients_cost, packaging_cost)
@@ -416,6 +420,8 @@ FROM baked_goods;
 ### Example 5.
 
 用 `|| ' ' ||` 來連結字串
+
+在這邊 `||` 就相當於 python 字串相加時的 `+`，`string1 || ' ' || string2` 就相當於 python 中的 string1 + ' ' + string2
 
 ```SQL
 SELECT city || ' ' || state AS location
