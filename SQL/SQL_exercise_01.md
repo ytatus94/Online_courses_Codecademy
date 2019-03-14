@@ -4,6 +4,7 @@
  * s (sid, sname, rating, age)
  * b (bid, bname, color)
  * r (sid, bid, date)
+ 
  Write each of the following queries in SQL.
  
 * Find the colors of boats reserved by Albert.
