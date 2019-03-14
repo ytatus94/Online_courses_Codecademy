@@ -1,5 +1,5 @@
 # SQL exercise 03
----
+
 * List full details of all employees.
 
 ```SQL
@@ -7,7 +7,7 @@ SELECT *
 FROM Employee;
 ```
 
-* Find employees who are older than 40 and have salary more than 20,000. The query result should display 'EmpName', 'Age', and 'Salary' columns. Sort the results in descending order by Age and then in ascending order by Salary.
+* Find employees who are older than 40 and have salary more than 20,000. The query result should display '**EmpName**', '**Age**', and '**Salary**' columns. Sort the results in descending order by Age and then in ascending order by Salary.
 
 ```SQL
 SELECT EmpName, Age, Salary
@@ -16,7 +16,7 @@ WHERE Age > 40 AND Salary > 20000
 ORDER BY Age DESC, Salary ASC;
 ```
 
-* Produce a report shown a list of monthly salaries of all employees. Round Monthly Salary to 2 decimal places. The for mat of your report should be the same as the table below
+* Produce a report shown a list of monthly salaries of all employees. Round Monthly Salary to 2 decimal places. The format of your report should be the same as the table below
 
 | Name | Monthly Salary |
 |:----:|:--------------:|
@@ -27,22 +27,20 @@ SELECT EmpName AS Name, ROUND(Salary / 12, 2) AS 'Monthly Salary'
 FROM Employee;
 ```
 
-* The company wants to give year-end bonus to its employees. The bonus each employee will get is the 5% of employee salary. Write a query to calculate the bonus each employee will receive at the end of this year. This newly calculated column should be named as 'Bonus'. The query result should display 'EmpId', 'EmpName', 'Salary', and 'Bonus' columns.
+* The company wants to give year-end bonus to its employees. The bonus each employee will get is the 5% of employee salary. Write a query to calculate the bonus each employee will receive at the end of this year. This newly calculated column should be named as 'Bonus'. The query result should display '**EmpId**', '**EmpName**', '**Salary**', and '**Bonus**' columns.
 
 ```SQL
-SELECT EmpId, EmpName, Salary, Salary * 0.05 AS Bonus
+SELECT EmpId, EmpName, Salary, Salary * 0.05 AS 'Bonus'
 FROM Employee;
 ```
 
-* Write a query to find the 'EmployeeID' of employees who work full-time (100%) in a department. Your query should display 'EmpID' and 'DeptID' columns.
+* Write a query to find the 'EmployeeID' of employees who work full-time (100%) in a department. Your query should display '**EmpID**' and '**DeptID**' columns.
 
 ```SQL
 SELECT EmpID, DeptID
 FROM Employee
 WHERE Percent_Time = 100;
 ```
-
----
 
 * List the departments located in Wellington or Auckland.
 
@@ -52,9 +50,7 @@ FROM Department
 WHERE DeptCity = 'Wellington' OR DeptCity = 'Auckland';
 ```
 
----
-
-* Find the employees who are order than twice your age. Your query result should show all the columns from the Employee table.
+* Find the employees who are older than twice your age. Your query result should show all the columns from the Employee table.
 
 ```SQL
 SELECT *
@@ -67,7 +63,7 @@ WHERE Age > 2 * Student Age;
 ```SQL
 SELECT EmpName
 FROM Employee
-WHERE EmpName like '%son';
+WHERE EmpName LIKE '%son';
 ```
 
 * Find employees whose age has not been supplied.
@@ -102,7 +98,7 @@ WHERE e.EmpID = w.EmpID AND
       (e.Age < 40 OR e.Salary < 100000);
 ```
 
-* Find employees who work half-time (50%) in the Hardwar department or the Operations department with more than $25,000 salary. Your query should display 'EmpID', 'EmpName', 'Salary' and 'DeptName' columns. There are multiple ways to show the query results. Try different SQL commands, including OR, IN, and JOIN.
+* Find employees who work half-time (50%) in the Hardwar department or the Operations department with more than $25,000 salary. Your query should display '**EmpID**', '**EmpName**', '**Salary**' and '**DeptName**' columns. There are multiple ways to show the query results. Try different SQL commands, including OR, IN, and JOIN.
 
 solution 1:
 
@@ -143,7 +139,7 @@ ON w.EmpID = e.EmpID AND
    e.Salary > 25000;
 ```
 
-* Hardware department wants to give its employees 2% bonus as they finished the project early. This 2% bonus is based on the percentage of time an employee working for the Hardware department. For instance, if an employee works 50% for the Hardware department and earns $20,000, this extra bonus will be $10,000 because only 50% of his/her salary is paid by the Hardware department. Write a query to calculate the 2% bonus for all the employees' of Hardware department. This newly calculated column should be named as 'Bonus form Hardware Dept.'. Provide a report the same as the table below.
+* Hardware department wants to give its employees 2% bonus as they finished the project early. This 2% bonus is based on the percentage of time an employee working for the Hardware department. For instance, if an employee works 50% for the Hardware department and earns $20,000, this extra bonus will be $10,000 because only 50% of his/her salary is paid by the Hardware department. Write a query to calculate the 2% bonus for all the employees' of Hardware department. This newly calculated column should be named as '**Bonus form Hardware Dept.**'. Provide a report the same as the table below.
 
 |Name|Salary|Percent_Time|Bonus from Hardware Dept.|
 |:--:|:----:|:----------:|:-----------------------:|
@@ -157,7 +153,7 @@ WHERE e.EmpID = w.EmpID AND
       d.DeptName = 'Hardware'
 ```
 
-* Find the total number of departments this company has. Your query should return the calculated field and name it as 'Total Number of Departments'
+* Find the total number of departments this company has. Your query should return the calculated field and name it as '**Total Number of Departments**'
 
 ```SQL
 SELECT COUNT(DeptID) AS 'Total Number of Departments'
@@ -171,7 +167,7 @@ FROM Department;
 |          |              |
 
 ```SQL
-SELECT d/DeptName, ROUND(AVG(e.Salary), 2) AS 'Average Salary'
+SELECT d.DeptName, ROUND(AVG(e.Salary), 2) AS 'Average Salary'
 FROM Employee e, Work w, Department d
 WHERE e.EmpID = w.EmpID AND
       w.DeptID = d.DeptID AND
@@ -201,7 +197,7 @@ HAVING COUNT(w.EmpID) < 5
 |          |      |      |      |
 
 ```SQL
-SELECT w.DeptID, MIN(e.Age) AS MinAge, ROUND(AVG(e.Age)) AS AvgAge, MAX(e.Age) AS MaxAge
+SELECT w.DeptID, MIN(e.Age) AS 'MinAge', ROUND(AVG(e.Age)) AS 'AvgAge', MAX(e.Age) AS 'MaxAge'
 FROM Employee e, Work w
 WHERE e.EmpID = w.EmpID
 GROUP BY w.DeptID
@@ -255,7 +251,7 @@ SELECT e.EmpName, e.Age
 FROM Employee e
 JOIN Department d
 ON e.EmpID = d.MgrEmpID AND
-   e.AGE > (SELECT (AVG(e1.Age)
+   e.AGE > (SELECT AVG(e1.Age)
             FROM Employee e1)
 ```
 
@@ -309,8 +305,7 @@ FROM (SELECT COUNT(w1.EmpID) AS NumEmployees, w1.DeptID
       WHERE Percent_Time = 100 AND
             e1.Age < 30
       GROUP BY w1.DeptID
-      HAVING COUNT(w1.EmpID) > 5)
-      AS SQ1
+      HAVING COUNT(w1.EmpID) > 5) AS SQ1
 JOIN Work w2
 USING (DeptID)
 JOIN Employee e2
