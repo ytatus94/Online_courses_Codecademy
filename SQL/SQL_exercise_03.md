@@ -1,5 +1,10 @@
 # SQL exercise 03
 
+* Employee (EmpName, EmpID, DeptID, Salary, HireDate)
+* Department (DeptName, DeptID, DeptCity, MgrEmpID, Budget)
+* Work (EmpID, DeptID, Percent_Time)
+
+
 * List full details of all employees.
 
 ```SQL
