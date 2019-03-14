@@ -1,10 +1,11 @@
 # SQL exercise 02
 
 ### For the following relation schema:
-  * employee(employee-name, street, city)
-  * works(employee-name, company-name, salary)
-  * company(company-name, city)
-  * manages(employee-name, manager-name)
+  * employee (employee-name, street, city)
+  * works (employee-name, company-name, salary)
+  * company (company-name, city)
+  * manages (employee-name, manager-name)
+  
   Give an expression in SQL for each of the following queries:
   
 * Find the names, street address, and cities of residence for all employees who work for 'First Bank Corporation' and earn more than $10,000.
