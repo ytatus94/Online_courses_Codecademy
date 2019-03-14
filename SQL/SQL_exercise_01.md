@@ -41,6 +41,7 @@ WHERE sid NOT IN (
           sname LIKE '%storm%'
     )
 ORDER BY s1.sname
+```
 
 * Find the sailor id’s of sailors with age over 20 who have not reserved a boat whose name includes the string “thunder”.
 
