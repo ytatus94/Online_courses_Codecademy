@@ -1,40 +1,40 @@
 # SQL exercise 02
 
 ### For the following relation schema:
-  * employee (employee-name, street, city)
-  * works (employee-name, company-name, salary)
-  * company (company-name, city)
-  * manages (employee-name, manager-name)
+  * employee (employee_name, street, city)
+  * works (employee_name, company_name, salary)
+  * company (company_name, city)
+  * manages (employee_name, manager_name)
   
   Give an expression in SQL for each of the following queries:
   
 * Find the names, street address, and cities of residence for all employees who work for 'First Bank Corporation' and earn more than $10,000.
 
 ```SQL
-SELECT employee-name, street, city
+SELECT employee_name, street, city
 FROM employee AS e, works AS w
-WHERE e.employee-name = w.employee-name AND
-      w.company-name = 'First Bank Corporation' AND
+WHERE e.employee_name = w.employee_name AND
+      w.company_name = 'First Bank Corporation' AND
       w.salary > 10000
 ```
 
 * Find the names of all employees in the database who live in the same cities as the companies for which they work.
 
 ```SQL
-SELECT employee-name
+SELECT employee_name
 FROM employee e, works w, company c
-WHERE e.employee-name = w.employee-name AND
-      w.company-name = c.company-name AND
+WHERE e.employee_name = w.employee_name AND
+      w.company_name = c.company_name AND
       e.city = c.city
 ```
 
 * Find the names of all employees in the database who live in the same cities and on the same streets as do their managers.
 
 ```SQL
-SELECT employee-name
+SELECT employee_name
 FROM employee e1, employee e2, manages m
-WHERE e1.employee-name = m.employee-name AND
-      e2.employee-name = m.manager-name AND
+WHERE e1.employee_name = m.employee_name AND
+      e2.employee_name = m.manager_name AND
       e1.city = e2.city AND
       e1.street = e2.street
 ```
@@ -42,9 +42,9 @@ WHERE e1.employee-name = m.employee-name AND
 * Find the names of all employees in the database who do not work for 'First Bank Corporation'. Assume that all people work for exactly one company.
 
 ```SQL
-SELECT employee-name
+SELECT employee_name
 FROM works
-WHERE company-name <> 'First Bank Corporation'
+WHERE company_name <> 'First Bank Corporation'
 ```
 
 * Find the names of all employees in the database who earn more than every employee of 'Small Bank Corporation'. Assume that all people work for at most one company.
@@ -52,25 +52,25 @@ WHERE company-name <> 'First Bank Corporation'
 My solution:
 
 ```SQL
-SELECT employee-name
+SELECT employee_name
 FROM works w1
 WHERE w1.Salary > (
     SELECT MAX(w2.Salary)
     FROM works w2
-    WHERE company-name = 'Small Bank Corporation'
-    GROUP BY company-name
+    WHERE company_name = 'Small Bank Corporation'
+    GROUP BY company_name
     )
 ``` 
 
 Given solution:
 
 ```SQL
-SELECT employee-name
+SELECT employee_name
 FROM works
 WHERE salary > ALL (
     SELECT salary
     FROM works
-    WHERE company-name = 'Small Bank Corporation'
+    WHERE company_name = 'Small Bank Corporation'
     )
 ```
 
@@ -79,19 +79,19 @@ WHERE salary > ALL (
 Given solution:
 
 ```SQL
-SELECT c.company-name
+SELECT c.company_name
 FROM company c1
 WHERE NOT EXISTS (
     (
      SELECT city
      FROM company
-     WHERE company-name = 'Small Bank Corporation'
+     WHERE company_name = 'Small Bank Corporation'
     )
     EXCEPT
     (
      SELECT city
      FROM company c2
-     WHERE c1.company-name = c2.company-name
+     WHERE c1.company_name = c2.company_name
     )
     )
 ```
@@ -99,37 +99,37 @@ WHERE NOT EXISTS (
 My solution
 
 ```SQL
-SELECT company-name
+SELECT company_name
 FROM company
 WHERE city IN (
     SELECT city
     FROM company
-    WHERE company-name = 'Small Bank Corporation'
+    WHERE company_name = 'Small Bank Corporation'
     )
 ```
 
 * Find the names of all employees who earn more than the average salary of all employees of their company. Assume that all people work for at most one company.
 
 ```SQL
-SELECT employee-name
+SELECT employee_name
 FROM works w1
 WHERE salary > (
     SELECT AVG(salary)
     FROM works w2
-    WHERE w1.company-name = w2.company-name
+    WHERE w1.company_name = w2.company_name
     )
 ```
 
 * Find the name of the company that has the smallest payroll.
 
 ```SQL
-SELECT company-name
+SELECT company_name
 FROM works
-GROUP BY company-name
+GROUP BY company_name
 HAVING SUM(salary) <= ALL(
     SELECT SUM(salary)
     FROM works
-    GROUP BY company-name
+    GROUP BY company_name
     )
 ```
 
