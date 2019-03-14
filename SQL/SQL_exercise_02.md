@@ -67,10 +67,10 @@ Given solution:
 SELECT employee-name
 FROM works
 WHERE salary > ALL (
-		SELECT salary
-		FROM works
-		WHERE company-name = 'Small Bank Corporation'
-		)
+    SELECT salary
+    FROM works
+    WHERE company-name = 'Small Bank Corporation'
+    )
 ```
 
 * Assume that the companies may be located in several cities. Find all companies located in every city in which 'Small Bank Corporation' is located.
@@ -83,16 +83,16 @@ FROM company c1
 WHERE NOT EXISTS (
     (
      SELECT city
-		 FROM company
-		 WHERE company-name = 'Small Bank Corporation'
-		)
-		EXCEPT
-		(
+     FROM company
+     WHERE company-name = 'Small Bank Corporation'
+    )
+    EXCEPT
+    (
      SELECT city
-		 FROM company c2
-		 WHERE c1.company-name = c2.company-name
-		)
-		)
+     FROM company c2
+     WHERE c1.company-name = c2.company-name
+    )
+    )
 ```
 
 My solution
