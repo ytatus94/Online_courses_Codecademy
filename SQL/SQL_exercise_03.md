@@ -338,7 +338,8 @@ ON d.DeptID = EmpMgr.DeptID AND
 
 * Find employees whose last name starts with 'W' and work full-time for the Operation department. Show employees' name and department. Note: there are different ways of retrieving results. Use INNER JOIN for this question.
 
-``` SELECT EmpName, DeptName, Percent_Time
+``` SQL
+SELECT EmpName, DeptName, Percent_Time
 FROM Department
 JOIN Work
 USING (DeptID)
