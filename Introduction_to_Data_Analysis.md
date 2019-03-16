@@ -9,11 +9,20 @@ y1_values = [y11, y12, y13, y14, y15]
 y2_values = [y21, y22, y23, y24, y25]
 plt.plot(x_values, y1_values, color='HTML color name or HEX code', linestyle='--', marker='o') # 上網查各種可用的 linestyle 和 marker
 plt.plot(x_values, y2_values, color='HTML color name or HEX code', linestyle=':',  marker='s')
+
 plt.axis([xmin, xmax, ymin, ymax]) # 限制圖的 x, y 上下限
+
 plt.xlabel('x title')
 plt.ylabel('y title')
 plt.title('canvas title')
+
 plt.show() # 前面的指令都只是建立在記憶體中，直到呼叫 show() 時才會畫出來
+
+plt.close('all') # 清除先前的圖，圖片視窗會被關掉
+
+plt.figure( figsize=(width, height) ) # 設定圖片寬與高，單位是 inches
+
+plt.savefig('檔名.png') # 可支援 png, svg, pdf
 ```
 - plt.subplot(幾列, 幾欄, 啟用第幾個)
 plt.subplots_adjust(left=0.125, right=0.9, top=0.9, bottom=0.1, wspace=0.2, hspace=0.2) 可以改間距，這邊列出的是預設值
@@ -25,19 +34,35 @@ ax.set_xticks([列表]) ticks 是軸上的刻度的小槓，列表表示要在�
 - ax.set_yticks([列表])
 ax.set_xticklabels([列表], rotation=角度) labels 是軸上小槓旁的文字，可以指定角度
 - ax.set_yticklabels([列表], rotation=角度)
-- plt.close('all') 清除先前的圖，圖片視窗會被關掉
-- plt.figure( figsize=(width, height) ) 設定圖片寬與高，單位是 inches
-- plt.savefig('檔名.png') 可支援 png, svg, pdf
 
-- 長條圖：plt.bar(幾條bar, [bar 高度列表], , bottom=[bar 的底部要從哪邊開始畫的列表，通常是疊在前一個 bar 圖上], yerr=[誤差列表], capsize=誤差上下橫槓有多寬)
 
-- 帶狀圖：plt.fill_between([x_values], [y_lower], [y_upper], alpha=透明度0~1)
+* 長條圖：
 
-- 大餅圖：plt.pie([列表], labels=[legend], autopct='%格式化字串') 格式化字串中如果有% 則要用兩個 %%
-- plt.axis('equal') 畫出正圓的大餅圖
-- histogram: plt.hist([列表], range=(xmin, xmax), bins=幾個bins, alpha=透明度0~1, histtype='step', normed=True) 預設是顏色填滿的，用 histtype='step' 則不填滿只畫線，normed=True 會歸一，range=(xmin, xmax) 包含 xmin 但並不包含 xmax
+```python
+plt.bar(幾條bar, [bar 高度列表], , bottom=[bar 的底部要從哪邊開始畫的列表，通常是疊在前一個 bar 圖上], yerr=[誤差列表], capsize=誤差上下橫槓有多寬)
+```
 
-Unit 2 Pandas
+* 帶狀圖：
+
+```python
+plt.fill_between([x_values], [y_lower], [y_upper], alpha=透明度0~1)
+```
+
+* 大餅圖：
+
+```python
+plt.pie([列表], labels=[legend], autopct='%格式化字串') # 格式化字串中如果有% 則要用兩個 %%
+plt.axis('equal') # 畫出正圓的大餅圖
+```
+ 
+* histogram: 
+
+```python
+plt.hist([列表], range=(xmin, xmax), bins=幾個bins, alpha=透明度0~1, histtype='step', normed=True)
+```
+預設是顏色填滿的，用 `histtype='step'` 則不填滿只畫線，`normed=True` 會歸一，`range=(xmin, xmax)` 包含 xmin 但並不包含 xmax
+
+# Unit 2 Pandas
 
 - Pandas 處理表格的資料
 import pandas as pd
@@ -115,7 +140,7 @@ DataFrame1.merge(DataFrame2).merge(DataFrame3) 可以合併多格表格
 
 - 結合多個表格：pd.concat([df1, df2, df2, ...]) 要結合的表格，表格的欄位順序和數目要ㄧ樣
 
-Unit 3 NumPy
+# Unit 3 NumPy
 
 - import numpy as np
 
@@ -169,7 +194,7 @@ The difference between the first and third quartile is a value called the interq
 P(A|B) 給定 B 發生的情況下 A 發生的機率
 P(A|B) = P(B|A) x P(A) / P(B)
 
-Unit 4 SciPy
+# Unit 4 SciPy
 
 - np.random.choice(population, size=30, replace=False) 從 population 中隨機選取 30 個元素
 - A null hypothesis is a statement that the observed difference is the result of chance.
