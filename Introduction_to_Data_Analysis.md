@@ -311,55 +311,70 @@ import numpy as np
 
 # Unit 4 SciPy
 
-- np.random.choice(population, size=30, replace=False) 從 population 中隨機選取 30 個元素
-- A null hypothesis is a statement that the observed difference is the result of chance.
-- A null hypothesis, which is a prediction that there is no significant difference.
-- 觀察到的差異是來自於偶然，實際上並沒有差異
-- Type I error, is finding a correlation between things that are not related. This error is sometimes called a "false positive" and occurs when the null hypothesis is rejected even though it is true.
-- 沒關係的事物中找關係
-false positive
-Null hypothesis 是對的，但分析的結果卻認為它是錯的
-- Type II error, is failing to find a correlation between things that are actually related. This error is referred to as a "false negative" and occurs when the null hypothesis is accepted even though it is false.
-- 有關係的事物中找關係，卻找不到關係
-false negative
-Null hypothesis 是錯的，但分析的結果卻認為它是對的
-- p-value 是 "null hypothesis 是正確的" 的機率.
-p-value = 0.05 表示 null hypothesis 有 5% 的機率是正確的，就是說有 5% 的機率兩個參與判斷的樣本間其實沒有差異
-p-value 越大的話越可能是 false-positive
-一般來說是選 p-value < 5% 時來 reject null hypothesis，表示參與判斷的兩樣本間其實是有顯著差異的
-
-- 數值的資料用 One Sample T-Tests, Two Sample T-Tests, ANOVA (Analysis of Variance), Tukey Tests
-分門別類的資料用 Binomial Tests, Chi Square
-- A univariate T-test compares a sample mean to a hypothetical population mean.
-- 1 Sample T-Testing:
-from scipy.stats import ttest_1samp
-tstat, pval = ttest_1samp(example_distribution, expected_mean)
-- 2 Sample T-Test:
-from scipy.stats import ttest_ind
-tstat, pval = ttest_ind(np_array1, np_array2)
-
-- 做越多次 T-test 的話 Type-I error 會越來越大
-The p-value is the probability that we incorrectly reject the null hypothesis on each t-test. The more t-tests we perform, the more likely that we are to get a false positive, a Type I error.
-- ANOVA
-比較超過兩組數值 dataset 時使用
-只能告訴我們，至少有一個 dataset 是和其他不同，但是不知道不同的是哪一個
+* 從 population 中隨機選取 30 個元素
+```python
+np.random.choice(population, size=30, replace=False)
+```
+* Null hypothesis
+  * A null hypothesis is a statement that the observed difference is the result of **chance**.
+  * A null hypothesis, which is a prediction that there is **no significant difference**.
+  * 觀察到的差異是來自於偶然，實際上並沒有差異
+* Type I error, is finding a correlation between things that are not related. This error is sometimes called a "**false positive**" and occurs when the **null hypothesis is rejected even though it is true**.
+  * 沒關係的事物中找關係
+  * false positive
+  * Null hypothesis 是對的，但分析的結果卻認為它是錯的
+* Type II error, is failing to find a correlation between things that are actually related. This error is referred to as a "**false negative**" and occurs when the **null hypothesis is accepted even though it is false**.
+  * 有關係的事物中找關係，卻找不到關係
+  * false negative
+  * Null hypothesis 是錯的，但分析的結果卻認為它是對的
+* p-value 是 "null hypothesis 是正確的" 的機率.
+  * p-value = 0.05 表示 null hypothesis 有 5% 的機率是正確的，就是說有 5% 的機率兩個參與判斷的樣本間其實沒有差異
+  * p-value 越大的話越可能是 false-positive
+  * 一般來說是選 p-value < 5% 時來 reject null hypothesis，表示參與判斷的兩樣本間其實是有顯著差異的
+* 數值的資料用 One Sample T-Tests, Two Sample T-Tests, ANOVA (Analysis of Variance), Tukey Tests
+* 分門別類的資料用 Binomial Tests, Chi Square
+* T-tast
+  * A univariate T-test compares a sample mean to a hypothetical population mean.
+  * 1 Sample T-Testing:
+    ```python
+    from scipy.stats import ttest_1samp
+    tstat, pval = ttest_1samp(example_distribution, expected_mean)
+    ```
+  * 2 Sample T-Test:
+    ```python
+    from scipy.stats import ttest_ind
+    tstat, pval = ttest_ind(np_array1, np_array2)
+    ```
+  * 做越多次 T-test 的話 Type-I error 會越來越大
+    * The p-value is the probability that we incorrectly reject the null hypothesis on each t-test. The more t-tests we perform, the more likely that we are to get a false positive, a Type I error.
+* ANOVA
+```python
 from scipy.stats import f_oneway
 fstat, pval = f_oneway(scores_mathematicians, scores_writers, scores_psychologists)
-- Tukey's Range Test:
+```
+  * 比較超過兩組數值 dataset 時使用
+  * 只能告訴我們，至少有一個 dataset 是和其他不同，但是不知道不同的是哪一個
+* Tukey's Range Test:
+```python
 from statsmodels.stats.multicomp import pairwise_tukeyhsd
 v = np.concatenate([a, b, c]) 要提供一個把全部資料串起來的列表
-- labels = ['a'] * len(a) + ['b'] * len(b) + ['c'] * len(c) 要標記哪個元素屬於哪一個資料
-- tukey_results = pairwise_tukeyhsd(v, labels, 0.05) p-value 這邊用 0.05
-- Binomial Test
-適用於剛好兩個分門別類的 dataset
+```
+  * `labels = ['a'] * len(a) + ['b'] * len(b) + ['c'] * len(c)` 要標記哪個元素屬於哪一個資料
+  *  `tukey_results = pairwise_tukeyhsd(v, labels, 0.05)` p-value 這邊用 0.05
+* Binomial Test
+```python
 from scipy.stats import binom_test
 pval = binom_test(number of observed successes, number of total trials, expected probability of success)
-- Chi Square Test
-兩個以上分門別類的 dataset 時使用
-要提供一個列表X，列表的欄位是不同的條件，每一列表示一組觀察
+```
+  * 適用於剛好兩個分門別類的 dataset
+* Chi Square Test
+```python
 from scipy.stats import chi2_contingency
 chi2, pval, dof, expected = chi2_contingency(X)
-- A sample size calculator requires three numbers
-The Baseline conversion rate
-The Minimum detectable effect
-The Statistical significance
+```
+兩個以上分門別類的 dataset 時使用
+要提供一個列表X，列表的欄位是不同的條件，每一列表示一組觀察
+* A sample size calculator requires three numbers
+  * The Baseline conversion rate
+  * The Minimum detectable effect
+  * The Statistical significance
