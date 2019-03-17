@@ -92,6 +92,7 @@ plt.hist([列表], range=(xmin, xmax), bins=幾個bins, alpha=透明度0~1, hist
     ```python
     pd.DataFrame([第一欄的值的 list], [第二欄的值的 list], [第三欄的值的 list], columns=['第一欄的名字', 第二欄的名字', '第三欄的名字'])
     ```
+    
     * 用這個方式建立表格的話，欄位順序和建立的順序是相同的
     * 每個列表內的數目要相同
 * CSV 
@@ -104,6 +105,7 @@ plt.hist([列表], range=(xmin, xmax), bins=幾個bins, alpha=透明度0~1, hist
   print(df.head(n)) # 可以列出前 n 列的內容，若沒有輸入 n 則預設是 5
   print(df.info()) # 顯示每一欄的統計資料
   ```
+  
 * 選擇表格內資料
   * 選擇欄位：`df['欄位的名字']` 或是 `df.欄位的名字`，若是欄位的名字有空白時則只能用第一種方式
   * 選擇多欄位：用欄位名字的列表當參數 `df[ ['欄位名字一', '欄位名字二'] ]`
@@ -129,13 +131,13 @@ plt.hist([列表], range=(xmin, xmax), bins=幾個bins, alpha=透明度0~1, hist
   * 方法二：`df.rename(columns={'舊名字一':'新名字一', '舊名字二':'新名字二'}, inplace=True)`，用參數 `inplace=True` 是直接修改原表格
 * 對欄位做運算：`df.column_name.command()`
   * 常見的運算命令有：
-    * mean()：欄位的平均值
-    * std()：欄位的標準差
-    * median()：欄位的中位數
-    * max() 和 min()：欄位的最大值和最小值
-    * count()：欄位計數
-    * nunique()：欄位內獨立值的個數
-    * unique()：傳回欄位內獨立值的列表
+    * `mean()`：欄位的平均值
+    * `std()`：欄位的標準差
+    * `median()`：欄位的中位數
+    * `max()` 和 `min()`：欄位的最大值和最小值
+    * `count()`：欄位計數
+    * `nunique()`：欄位內獨立值的個數
+    * `unique()`：傳回欄位內獨立值的列表
 * Group by
   * `df.groupby('column1').column2.measurement()` 不會產生 DataFrame
   * `df.groupby('column1').column2.measurement().reset_index()` 會產生 DataFrame
@@ -145,13 +147,31 @@ plt.hist([列表], range=(xmin, xmax), bins=幾個bins, alpha=透明度0~1, hist
   * `pd.merge(DataFrame1, DataFrame2)`
   * `DataFrame1.merge(DataFrame2).merge(DataFrame3)` 可以合併多格表格
   * 當表格的欄位名稱不同時，要指定要依哪個欄位來合併表格：
-    * 方法一：改欄位名字後再合併：`pd.merge(DataFrame1, DataFrame2.rename(columns={'在DataFrame2中的欄位名稱': '要改成在DataFrame1中的欄位名稱'}))`
-    * 方法二：指名兩個表格要依照哪個欄位合併：`pd.merge(DataFrame1, DataFrame2, left_on='DataFrame1中的欄位名稱', right_on='DataFrame2中的欄位名稱', suffixes=['_欄位名稱後綴1','_欄位名稱後綴2'])`
+    * 方法一：改欄位名字後再合併：
+      ```python
+      pd.merge(DataFrame1, DataFrame2.rename(columns={'在DataFrame2中的欄位名稱': '要改成在DataFrame1中的欄位名稱'}))
+      ```
+    * 方法二：指名兩個表格要依照哪個欄位合併：
+      ```python
+      pd.merge(DataFrame1, DataFrame2, left_on='DataFrame1中的欄位名稱', right_on='DataFrame2中的欄位名稱', suffixes=['_欄位名稱後綴1','_欄位名稱後綴2'])
+      ```
   * inner merge：當兩個表格中的某一列不合時，合併兩個表格後就會少掉這一列
-  * Outer Merge：`pd.merge(DataFrame1, DataFrame2, how='outer')` 合併兩個表格，若有不合的列，一樣保留在合併後的表格，資訊空缺的格子裡會填上 `None` 或 `nan`
-  * 左合併：`pd.merge(DataFrame1, DataFrame2, how='left')` 保留完整的 DataFrame1，而 DataFrame2 中符合的才合併
+  * Outer Merge：
+    ```python
+    pd.merge(DataFrame1, DataFrame2, how='outer')
+    ``` 
+    合併兩個表格，若有不合的列，一樣保留在合併後的表格，資訊空缺的格子裡會填上 `None` 或 `nan`
+  * 左合併：
+    ```python
+    pd.merge(DataFrame1, DataFrame2, how='left')
+    ``` 
+    保留完整的 DataFrame1，而 DataFrame2 中符合的才合併
     * 也可以用 `df1.merge(df2, how='left')`
-  * 右合併：`pd.merge(DataFrame1, DataFrame2, how='right')` 保留完整的 DataFrame2，而 DataFrame1 中符合的才合併
+  * 右合併：
+    ```python
+    pd.merge(DataFrame1, DataFrame2, how='right')
+    ``` 
+    保留完整的 DataFrame2，而 DataFrame1 中符合的才合併
 * 結合多個表格：`pd.concat([df1, df2, df2, ...])` 要結合的表格，表格的欄位順序和數目要ㄧ樣
 
 # Unit 3 NumPy
