@@ -8,7 +8,8 @@
   * Unit 5: Data Retrival with SQL
   * Unit 6: Capstone Project
 
-* Introduction to Data Analysis.md:
+* Introduction to Data Analysis.md
+  * This is the note
 
 * SQL
   * Learn SQL
@@ -28,3 +29,9 @@
     * SQL exercise 01
     * SQL exercise 02
     * SQL exercise 03
+
+* Projects
+  * biodiversity
+  * foodwheel
+  * microtransactions
+  * musclehub_project
