@@ -77,81 +77,82 @@ plt.hist([列表], range=(xmin, xmax), bins=幾個bins, alpha=透明度0~1, hist
 
 # Unit 2 Pandas
 
-- Pandas 處理表格的資料
-import pandas as pd
-- DataFrame 是一個表格物件，每一欄有個名字，每一列有個 id
-建立 DataFrame 的方式一：用 dictionary
-pd.DataFrame({'第一欄的名字'：[第一欄的值的 list], '第二欄的名字'：[第二欄的值的 list], '第三欄的名字'：[第三欄的值的 list], ...})
-每個列表內的數目要相同
-表格建立後欄位是以字母順序排列，不會按照字典內定義的順序
-建立 DataFrame 的方式二：用 lists
-pd.DataFrame([第一欄的值的 list], [第二欄的值的 list], [第三欄的值的 list], columns=['第一欄的名字', 第二欄的名字', '第三欄的名字'])
-用這個方式建立表格的話，欄位順序和建立的順序是相同的
-每個列表內的數目要相同
-- CSV 全名是 comma separated values
+* 用 Pandas 處理表格的資料 `import pandas as pd`
+* DataFrame 是一個表格物件，每一欄有個名字，每一列有個 id
+  * 建立 DataFrame 方式一：用 dictionary
+  
+    ```python
+    pd.DataFrame({'第一欄的名字'：[第一欄的值的 list], '第二欄的名字'：[第二欄的值的 list], '第三欄的名字'：[第三欄的值的 list], ...})
+    ```
+  
+    * 每個列表內的數目要相同
+    * 表格建立後欄位是以字母順序排列，不會按照字典內定義的順序
+  * 建立 DataFrame 方式二：用 lists
 
-- 表格也可以用 CSV 餵入：pd.read_csv('檔名.csv')
+    ```python
+    pd.DataFrame([第一欄的值的 list], [第二欄的值的 list], [第三欄的值的 list], columns=['第一欄的名字', 第二欄的名字', '第三欄的名字'])
+    ```
+    * 用這個方式建立表格的話，欄位順序和建立的順序是相同的
+    * 每個列表內的數目要相同
+* CSV 
+  * 全名是 comma separated values
+  * 表格也可以用 CSV 餵入：pd.read_csv('檔名.csv')
+* 檢查表格內容
 
-- 檢查表格內容 df = pd.read_csv('檔名.csv')
-print(df.head(n))，可以列出前 n 列的內容，若沒有輸入 n 則預設是 5
-- print(df.info()) 顯示每一欄的統計資料
-
-- 選擇欄位：df['欄位的名字'] 或是 df.欄位的名字，若是欄位的名字有空白時則只能用第一種方式
-- 選擇多欄位：用欄位名字的列表當參數 df[ ['欄位名字一', '欄位名字二'] ]
-
-- 選擇列：df.iloc[n]  n 表示第 n 列(列的 index)，從 0 開始算起
-- 選擇許多列：df.iloc[star: end] 就用 list 的 slice 來選擇，但這些列就是連續的
-- 選擇特定列：df[ df.欄位名 條件判斷式 ]，用 | 和 & 來表示 or 和 and，此時條件判斷式記得加括號，條件判斷式不用加 if
-- 例如：(df.欄位名 == 'A') | (df.欄位名 == 'B')
-選擇特定列：df.[ df.欄位名.isin([該欄位名裡面的某些值的列表]) ]
-
-- 選擇列後會留下原本的 id，可以用 df.reset_index() 改 id
-- 不加參數時，原先的 id 會存成一個新的欄位叫做 index，可以加參數 drop=True 而不要這一新欄位
-- df.reset_index() 預設傳回一個新的表格物件，用參數 inplace=True 可直接傳回修改後的原表格
-- 所以可以用 df.reset_index(inplace=True, drop=True)
-
-- 新增一欄：df['新欄位名字'] = [新欄位值的列表]，注意列表的數目要和原本表格中的列的數目一樣
-- 若是欄位的值都一樣，那就不用列表，直接放值，例如 df['欄位名字'] = 5 則該欄位全部的值都是 5
-- 也可以不用列表，改放算式
-例如：df.欄位名字.apply(lower) 改小寫，df.欄位名字.apply(upper) 改大寫，df.欄位名字.apply(lambda function) 可以對欄位做 lambda function 中的運算
-- lambda x: OUTCOME IF TRUE if CONDITIONAL else OUTCOME IF FALSE
-
-- 對 row 做 lambda function 運算：lambda row: row 運算，用 row.column_name 或 row['column_name'] 存取某個特別的欄位的值
-- df.apply(lambda function row 運算, axis=1) 對列做 lambda function 的運算
-
-- 欄位改名字方法一：df.columns = ['第ㄧ欄的新名字', '第二欄的新名字']
-- 欄位改名字方法二：df.rename(columns={'舊名字一':'新名字一', '舊名字二':'新名字二'}, inplace=True)，用參數 inplace=True 是直接修改原表格
-
-- 對欄位做運算：df.column_name.command()
-- 常見的運算命令有：
-mean()：欄位的平均值
-- std()：欄位的標準差
-- median()：欄位的中位數
-- max() 和 min()：欄位的最大值和最小值
-- count()：欄位計數
-- nunique()：欄位內獨立值的個數
-- unique()：傳回欄位內獨立值的列表
-- df.groupby('column1').column2.measurement() 不會產生 DataFrame
-- df.groupby('column1').column2.measurement().reset_index() 會產生 DataFrame
-
-- 樞紐分析表：df.pivot(columns='ColumnToPivot', index='ColumnToBeRows', values='ColumnToBeValues')
-- 結尾加入 .reset_index() 會產生 DataFrame
-
-- 合併表格，表格有相同的欄位名稱時，會自動合併
-pd.merge(DataFrame1, DataFrame2)
-DataFrame1.merge(DataFrame2).merge(DataFrame3) 可以合併多格表格
-
-- 當表格的欄位名稱不同時，要指定要依哪個欄位來合併表格：
-方法一：改欄位名字後再合併：pd.merge(DataFrame1, DataFrame2.rename(columns={'在DataFrame2中的欄位名稱': '要改成在DataFrame1中的欄位名稱'}))
-- 方法二：指名兩個表格要依照哪個欄位合併：pd.merge(DataFrame1, DataFrame2, left_on='DataFrame1中的欄位名稱', right_on='DataFrame2中的欄位名稱', suffixes=['_欄位名稱後綴1','_欄位名稱後綴2'])
-- inner merge：當兩個表格中的某一列不合時，合併兩個表格後就會少掉這一列
-- Outer Merge：pd.merge(DataFrame1, DataFrame2, how='outer') 合併兩個表格，若有不合的列，一樣保留在合併後的表格，資訊空缺的格子裡會填上 None 或 nan
-
-- 左合併：pd.merge(DataFrame1, DataFrame2, how='left') 保留完整的 DataFrame1，而 DataFrame2 中符合的才合併
-- 也可以用 df1.merge(df2, how='left')
-- 右合併：pd.merge(DataFrame1, DataFrame2, how='right') 保留完整的 DataFrame2，而 DataFrame1 中符合的才合併
-
-- 結合多個表格：pd.concat([df1, df2, df2, ...]) 要結合的表格，表格的欄位順序和數目要ㄧ樣
+  ```python
+  df = pd.read_csv('檔名.csv')
+  print(df.head(n)) # 可以列出前 n 列的內容，若沒有輸入 n 則預設是 5
+  print(df.info()) # 顯示每一欄的統計資料
+  ```
+* 選擇表格內資料
+  * 選擇欄位：`df['欄位的名字']` 或是 `df.欄位的名字`，若是欄位的名字有空白時則只能用第一種方式
+  * 選擇多欄位：用欄位名字的列表當參數 `df[ ['欄位名字一', '欄位名字二'] ]`
+  * 選擇列：`df.iloc[n]`  n 表示第 n 列(列的 index)，從 0 開始算起
+  * 選擇許多列：`df.iloc[star: end]` 就用 list 的 slice 來選擇，但這些列就是連續的
+  * 選擇特定列：`df[ df.欄位名 條件判斷式 ]`，用 `|` 和 `&` 來表示 or 和 and，此時條件判斷式記得加括號，條件判斷式不用加 if
+    * 例如：`(df.欄位名 == 'A') | (df.欄位名 == 'B')`
+  * 選擇特定列：`df.[ df.欄位名.isin([該欄位名裡面的某些值的列表]) ]`
+  * 選擇列後會留下原本的 id，可以用 `df.reset_index()` 改 id
+  * 不加參數時，原先的 id 會存成一個新的欄位叫做 index，可以加參數 `drop=True` 而不要這一新欄位
+  * `df.reset_index()` 預設傳回一個新的表格物件，用參數 `inplace=True` 可直接傳回修改後的原表格
+    * 所以可以用 `df.reset_index(inplace=True, drop=True)`
+* 新增一欄：`df['新欄位名字'] = [新欄位值的列表]`，注意列表的數目要和原本表格中的列的數目一樣
+  * 若是欄位的值都一樣，那就不用列表，直接放值，例如 `df['欄位名字'] = 5` 則該欄位全部的值都是 5
+  * 也可以不用列表，改放算式
+    * 例如：`df.欄位名字.apply(lower)` 改小寫，`df.欄位名字.apply(upper)` 改大寫，`df.欄位名字.apply(lambda function)` 可以對欄位做 lambda function 中的運算
+* lambda function:
+  * `lambda x: OUTCOME IF TRUE if CONDITIONAL else OUTCOME IF FALSE`
+  * 對 row 做 lambda function 運算：`lambda row: row 運算`，用 `row.column_name` 或 `row['column_name']` 存取某個特別的欄位的值
+  * `df.apply(lambda function row 運算, axis=1)` 對列做 lambda function 的運算
+* 欄位改名字
+  * 方法一：`df.columns = ['第ㄧ欄的新名字', '第二欄的新名字']`
+  * 方法二：`df.rename(columns={'舊名字一':'新名字一', '舊名字二':'新名字二'}, inplace=True)`，用參數 `inplace=True` 是直接修改原表格
+* 對欄位做運算：`df.column_name.command()`
+  * 常見的運算命令有：
+    * mean()：欄位的平均值
+    * std()：欄位的標準差
+    * median()：欄位的中位數
+    * max() 和 min()：欄位的最大值和最小值
+    * count()：欄位計數
+    * nunique()：欄位內獨立值的個數
+    * unique()：傳回欄位內獨立值的列表
+* Group by
+  * `df.groupby('column1').column2.measurement()` 不會產生 DataFrame
+  * `df.groupby('column1').column2.measurement().reset_index()` 會產生 DataFrame
+* 樞紐分析表：`df.pivot(columns='ColumnToPivot', index='ColumnToBeRows', values='ColumnToBeValues')`
+  * 結尾加入 `.reset_index()` 會產生 DataFrame
+* 合併表格，表格有相同的欄位名稱時，會自動合併
+  * `pd.merge(DataFrame1, DataFrame2)`
+  * `DataFrame1.merge(DataFrame2).merge(DataFrame3)` 可以合併多格表格
+  * 當表格的欄位名稱不同時，要指定要依哪個欄位來合併表格：
+    * 方法一：改欄位名字後再合併：`pd.merge(DataFrame1, DataFrame2.rename(columns={'在DataFrame2中的欄位名稱': '要改成在DataFrame1中的欄位名稱'}))`
+    * 方法二：指名兩個表格要依照哪個欄位合併：`pd.merge(DataFrame1, DataFrame2, left_on='DataFrame1中的欄位名稱', right_on='DataFrame2中的欄位名稱', suffixes=['_欄位名稱後綴1','_欄位名稱後綴2'])`
+  * inner merge：當兩個表格中的某一列不合時，合併兩個表格後就會少掉這一列
+  * Outer Merge：`pd.merge(DataFrame1, DataFrame2, how='outer')` 合併兩個表格，若有不合的列，一樣保留在合併後的表格，資訊空缺的格子裡會填上 `None` 或 `nan`
+  * 左合併：`pd.merge(DataFrame1, DataFrame2, how='left')` 保留完整的 DataFrame1，而 DataFrame2 中符合的才合併
+    * 也可以用 `df1.merge(df2, how='left')`
+  * 右合併：`pd.merge(DataFrame1, DataFrame2, how='right')` 保留完整的 DataFrame2，而 DataFrame1 中符合的才合併
+* 結合多個表格：`pd.concat([df1, df2, df2, ...])` 要結合的表格，表格的欄位順序和數目要ㄧ樣
 
 # Unit 3 NumPy
 
