@@ -96,13 +96,39 @@ print(df.head(n)) # 可以列出前 n 列的內容，若沒有輸入 n 則預設
 print(df.info()) # 顯示每一欄的統計資料
 ```
 * 選擇表格內資料
-  * 選擇欄位：`df['欄位的名字']` 或是 `df.欄位的名字`，若是欄位的名字有空白時則只能用第一種方式
-  * 選擇多欄位：用欄位名字的列表當參數 `df[ ['欄位名字一', '欄位名字二'] ]`
-  * 選擇列：`df.iloc[n]`  n 表示第 n 列(列的 index)，從 0 開始算起
-  * 選擇許多列：`df.iloc[star: end]` 就用 list 的 slice 來選擇，但這些列就是連續的
-  * 選擇特定列：`df[ df.欄位名 條件判斷式 ]`，用 `|` 和 `&` 來表示 or 和 and，此時條件判斷式記得加括號，條件判斷式不用加 if
-    * 例如：`(df.欄位名 == 'A') | (df.欄位名 == 'B')`
-  * 選擇特定列：`df.[ df.欄位名.isin([該欄位名裡面的某些值的列表]) ]`
+  * 選擇欄位：
+    ```python
+    df['欄位的名字']
+    df.欄位的名字
+    ```
+    若是欄位的名字有空白時則只能用第一種方式
+  * 選擇多欄位：用欄位名字的列表當參數
+    ```python
+    df[ ['欄位名字一', '欄位名字二'] ]
+    ```
+  * 選擇列：
+    ```python
+    df.iloc[n]
+    ```
+    n 表示第 n 列(列的 index)，從 0 開始算起
+  * 選擇許多列：
+    ```python
+    df.iloc[star: end]
+    ```
+    就用 list 的 slice 來選擇，但這些列就是連續的
+  * 選擇特定列：
+    ```python
+    df[ df.欄位名 條件判斷式 ]
+    ```
+    * 用 `|` 和 `&` 來表示 or 和 and，此時條件判斷式記得加括號，條件判斷式不用加 if
+    * 例如：
+      ```python
+      (df.欄位名 == 'A') | (df.欄位名 == 'B')
+      ```
+  * 選擇特定列：
+    ```python
+    df.[ df.欄位名.isin([該欄位名裡面的某些值的列表]) ]
+    ```
   * 選擇列後會留下原本的 id，可以用 `df.reset_index()` 改 id
   * 不加參數時，原先的 id 會存成一個新的欄位叫做 index，可以加參數 `drop=True` 而不要這一新欄位
   * `df.reset_index()` 預設傳回一個新的表格物件，用參數 `inplace=True` 可直接傳回修改後的原表格
@@ -114,13 +140,21 @@ df['新欄位名字'] = [新欄位值的列表]
   * 注意列表的數目要和原本表格中的列的數目一樣
   * 若是欄位的值都一樣，那就不用列表，直接放值，例如 `df['欄位名字'] = 5` 則該欄位全部的值都是 5
   * 也可以不用列表，改放算式
-    * 例如：`df.欄位名字.apply(lower)` 改小寫，`df.欄位名字.apply(upper)` 改大寫，`df.欄位名字.apply(lambda function)` 可以對欄位做 lambda function 中的運算
+    * 例如：
+      ```python
+      df.欄位名字.apply(lower) # 改小寫
+      df.欄位名字.apply(upper) # 改大寫
+      df.欄位名字.apply(lambda function) # 可以對欄位做 lambda function 中的運算
+      ```
 * lambda function:
 ```python
 lambda x: OUTCOME IF TRUE if CONDITIONAL else OUTCOME IF FALSE
 ```
   * 對 row 做 lambda function 運算：`lambda row: row 運算`，用 `row.column_name` 或 `row['column_name']` 存取某個特別的欄位的值
-  * `df.apply(lambda function row 運算, axis=1)` 對列做 lambda function 的運算
+  * 對列做 lambda function 的運算
+    ```python
+    df.apply(lambda function row 運算, axis=1)
+    ``` 
 * 欄位改名字
 ```python
 df.columns = ['第ㄧ欄的新名字', '第二欄的新名字']
@@ -154,13 +188,12 @@ pd.merge(DataFrame1, DataFrame2)
 DataFrame1.merge(DataFrame2).merge(DataFrame3) # 可以合併多格表格
 ```
   * 當表格的欄位名稱不同時，要指定要依哪個欄位來合併表格：
-    * 方法一：改欄位名字後再合併：
-      ```python
-      pd.merge(DataFrame1, DataFrame2.rename(columns={'在DataFrame2中的欄位名稱': '要改成在DataFrame1中的欄位名稱'}))
-      ```
-    * 方法二：指名兩個表格要依照哪個欄位合併：
-      ```python
-      pd.merge(DataFrame1, DataFrame2, left_on='DataFrame1中的欄位名稱', right_on='DataFrame2中的欄位名稱', suffixes=['_欄位名稱後綴1','_欄位名稱後綴2'])
+    ```python
+    # 改欄位名字後再合併：
+    pd.merge(DataFrame1, DataFrame2.rename(columns={'在DataFrame2中的欄位名稱': '要改成在DataFrame1中的欄位名稱'}))
+    
+    # 指名兩個表格要依照哪個欄位合併：
+    pd.merge(DataFrame1, DataFrame2, left_on='DataFrame1中的欄位名稱', right_on='DataFrame2中的欄位名稱', suffixes=['_欄位名稱後綴1','_欄位名稱後綴2'])
       ```
   * inner merge：當兩個表格中的某一列不合時，合併兩個表格後就會少掉這一列
   * Outer Merge：
@@ -171,9 +204,9 @@ DataFrame1.merge(DataFrame2).merge(DataFrame3) # 可以合併多格表格
   * 左合併：
     ```python
     pd.merge(DataFrame1, DataFrame2, how='left')
+    df1.merge(df2, how='left')
     ``` 
     保留完整的 DataFrame1，而 DataFrame2 中符合的才合併
-    * 也可以用 `df1.merge(df2, how='left')`
   * 右合併：
     ```python
     pd.merge(DataFrame1, DataFrame2, how='right')
@@ -196,14 +229,28 @@ import numpy as np
     np.genfromtxt('sample.csv', delimiter=',') # 從檔案中讀取成陣列
     ```
   * Numpy array 可以用陣列名字直接做加減乘除，會對陣列內的每個元素做對應的加減乘除
-  * 建立二維陣列：`np.array([ [第一列的列表], [第二列的列表] ])` 兩個列表中的元素個數要相等，高維陣列以此列推
+  * 建立二維陣列：
+    ```python
+    np.array([ [第一列的列表], [第二列的列表] ])
+    ```
+    兩個列表中的元素個數要相等，高維陣列以此列推
   * 同一欄位的是 `axis=0`，同一列的是 `axis=1`，即 `axis=0` 是指 column，`axis=1` 是指 row
     * 高維陣列的話，最外面的括號是 `axis=0`，隨著括號增加而 axis 遞增
   * 陣列切片的方式和用在列表上的相同，因此可以使用列表的 slice 的方式來存取 Numpy array 的元素
   * 二維陣列的元素：`a[row, column]` 一樣可以使用列表的 slice 的方式來存取二維陣列的元素
-  * 選取二維陣列中的一整欄：`a[:, 要選取的欄]`
-  * 選取二維陣列中的一整列：`a[要選取的列, :]`
-  * 邏輯運算：`a[ 用 | 和 & 並且以括號括住每一項條件判斷式 ]` 注意只有一個 `|` 和 `&`
+  * 選取二維陣列中的一整欄：
+    ```python
+    a[:, 要選取的欄]
+    ```
+  * 選取二維陣列中的一整列：
+    ```python
+    a[要選取的列, :]
+    ```
+  * 邏輯運算：
+    ```python
+    a[ 用 | 和 & 並且以括號括住每一項條件判斷式 ]
+    ```
+    注意只有一個 `|` 和 `&`
 * 簡單的統計：
   * 平均：
     ```python
@@ -214,17 +261,17 @@ import numpy as np
     * When `np.mean()` calculates a logical statement, the resulting mean value will be equivalent to the total number of True items divided by the total array length.
   * 二維陣列平均：
     ```python
-    np.mean( Numpy array ) # 是全部元素的平均
+    np.mean(Numpy array) # 是全部元素的平均
     np.mean(Numpy array, axis=0) # 是每一欄的平均
     np.mean(Numpy array, axis=1) # 是每一列的平均
     ```
   * 排序：
     ```python
-    np.sort( Numpy array )
+    np.sort(Numpy array)
     ```
   * 中位數：
     ```python
-    np.median( Numpy array ) # 列表元素個數是奇數時，中位數是最中間那個元素，列表元素個數是偶數時，中位數是最中間兩個數的平均值
+    np.median(Numpy array) # 列表元素個數是奇數時，中位數是最中間那個元素，列表元素個數是偶數時，中位數是最中間兩個數的平均值
     ```
   * Percentiles：
     ```python
@@ -233,7 +280,7 @@ import numpy as np
     * 例如 `d = [1, 2, 3, 4, 4, 4, 6, 6, 7, 8, 8]` 有 11 個值 `np.percentile(d, 40)` 會傳回第二個 `4` 因為 `[1, 2, 3, 4]` 是 40% 比較小 `[4, 6, 6, 7, 8, 8]` 是 60% 比較大
   * 標準差：
     ```python
-    np.std( Numpy array )
+    np.std(Numpy array)
     ```
 * Values that don’t fit within the majority of a dataset are known as **outliers**
   * The 25th percentile is called the **first quartile**
