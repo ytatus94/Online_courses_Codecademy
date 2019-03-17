@@ -10,8 +10,10 @@ y2_values = [y21, y22, y23, y24, y25]
 plt.plot(x_values, y1_values, color='HTML color name or HEX code', linestyle='--', marker='o') # 上網查各種可用的 linestyle 和 marker
 plt.plot(x_values, y2_values, color='HTML color name or HEX code', linestyle=':',  marker='s')
 
-plt.axis([xmin, xmax, ymin, ymax]) # 限制圖的 x, y 上下限
+# 限制圖的 x, y 上下限
+plt.axis([xmin, xmax, ymin, ymax])
 
+# 設定圖片的 X 軸 Y 軸，還有整張圖的標題
 plt.xlabel('x title')
 plt.ylabel('y title')
 plt.title('canvas title')
@@ -23,18 +25,29 @@ plt.close('all') # 清除先前的圖，圖片視窗會被關掉
 plt.figure( figsize=(width, height) ) # 設定圖片寬與高，單位是 inches
 
 plt.savefig('檔名.png') # 可支援 png, svg, pdf
-```
-- plt.subplot(幾列, 幾欄, 啟用第幾個)
-plt.subplots_adjust(left=0.125, right=0.9, top=0.9, bottom=0.1, wspace=0.2, hspace=0.2) 可以改間距，這邊列出的是預設值
-- plt.legend(['legend 1', 'legend 2'], loc=0~10) 依照 plt.plot() 在程式碼中出現的順序排列
-- loc 指定 legend 放哪邊：0 自動 1 右上 2 左上 3 右下 4 左下 5 右 6 中左 7 中右 8 中下 9 中上 10 中
-也可以用 plt.plot(x_values, y_values, label='legend') 來指名 legend，用這個方式比較好，但是用這個方式仍然要呼叫 plt.legend()
-- ax = plt.subplot()
-ax.set_xticks([列表]) ticks 是軸上的刻度的小槓，列表表示要在哪邊畫出小橫槓
-- ax.set_yticks([列表])
-ax.set_xticklabels([列表], rotation=角度) labels 是軸上小槓旁的文字，可以指定角度
-- ax.set_yticklabels([列表], rotation=角度)
 
+# 分割圖片成子圖
+plt.subplot(幾列, 幾欄, 啟用第幾個子圖)
+plt.subplots_adjust(left=0.125, right=0.9, top=0.9, bottom=0.1, wspace=0.2, hspace=0.2) # 可以改間距，這邊列出的是預設值
+
+plt.legend(['legend 1', 'legend 2'], loc=0~10) # 會依照 plt.plot() 在程式碼中出現的順序排列
+
+```
+
+* `loc` 可以指定 legend 放哪邊：0 自動 1 右上 2 左上 3 右下 4 左下 5 右 6 中左 7 中右 8 中下 9 中上 10 中
+  * 也可以用 `plt.plot(x_values, y_values, label='legend')` 來指名 legend，用這個方式比較好，但是用這個方式仍然要呼叫 `plt.legend()`
+  
+* 裝飾圖表
+
+```python
+ax = plt.subplot()
+
+ax.set_xticks([列表]) # ticks 是軸上的刻度的小槓，列表表示要在哪邊畫出小橫槓
+ax.set_yticks([列表])
+
+ax.set_xticklabels([列表], rotation=角度) # labels 是軸上小槓旁的文字，可以指定角度
+ax.set_yticklabels([列表], rotation=角度)
+```
 
 * 長條圖：
 
