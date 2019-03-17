@@ -357,10 +357,10 @@ fstat, pval = f_oneway(scores_mathematicians, scores_writers, scores_psychologis
 * Tukey's Range Test:
 ```python
 from statsmodels.stats.multicomp import pairwise_tukeyhsd
-v = np.concatenate([a, b, c]) 要提供一個把全部資料串起來的列表
+v = np.concatenate([a, b, c]) # 要提供一個把全部資料串起來的列表
+labels = ['a'] * len(a) + ['b'] * len(b) + ['c'] * len(c) # 要標記哪個元素屬於哪一個資料
+tukey_results = pairwise_tukeyhsd(v, labels, 0.05) # p-value 這邊用 0.05
 ```
-  * `labels = ['a'] * len(a) + ['b'] * len(b) + ['c'] * len(c)` 要標記哪個元素屬於哪一個資料
-  *  `tukey_results = pairwise_tukeyhsd(v, labels, 0.05)` p-value 這邊用 0.05
 * Binomial Test
 ```python
 from scipy.stats import binom_test
