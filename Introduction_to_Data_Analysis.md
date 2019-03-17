@@ -165,13 +165,16 @@ df.rename(columns={'舊名字一':'新名字一', '舊名字二':'新名字二'}
 df.column_name.command()
 ```
   * 常見的運算命令有：
-    * `mean()`：欄位的平均值
-    * `std()`：欄位的標準差
-    * `median()`：欄位的中位數
-    * `max()` 和 `min()`：欄位的最大值和最小值
-    * `count()`：欄位計數
-    * `nunique()`：欄位內獨立值的個數
-    * `unique()`：傳回欄位內獨立值的列表
+    ```python
+    mean() # 欄位的平均值
+    std() # 欄位的標準差
+    median() # 欄位的中位數
+    max() # 欄位的最大值
+    min() # 欄位的最小值
+    count() # 欄位計數
+    nunique() # 欄位內獨立值的個數
+    unique() # 傳回欄位內獨立值的列表
+    ```
 * Group by
 ```python
 df.groupby('column1').column2.measurement() # 不會產生 DataFrame
