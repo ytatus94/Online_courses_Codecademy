@@ -79,7 +79,7 @@ import pandas as pd
     * 表格建立後欄位是以字母順序排列，不會按照字典內定義的順序
   * 建立 DataFrame 方式二：用 lists 建立列
     ```python
-    pd.DataFrame([第一列的值的 list], [第二列的值的 list], [第三列的值的 list], columns=['第一欄的名字', 第二欄的名字', '第三欄的名字'])
+    pd.DataFrame([[第一列的值的 list], [第二列的值的 list], [第三列的值的 list]], columns=['第一欄的名字', 第二欄的名字', '第三欄的名字'])
     ```
     * 用這個方式建立表格的話，欄位順序和建立的順序是相同的
     * 每個列表內的數目要相同
