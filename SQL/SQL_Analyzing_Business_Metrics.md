@@ -465,14 +465,14 @@ WHERE ...
   * 範例：
 
 ```SQL
-FROME daily_revenue
+FROM daily_revenue
 JOIN daily_players USING (dt);
 ```
 
 上面和下面等價
 
 ```SQL
-FROME daily_revenue
+FROM daily_revenue
 JOIN daily_players
   ON daily_revenue.dt = daily_players.dt;
 ```
