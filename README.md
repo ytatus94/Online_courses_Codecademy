@@ -25,10 +25,6 @@
   * SQL: Analyzing Business Metrics
     * Advanced Aggregates
     * Common Metrics
-  * There are not codecademy courses, just the SQL exercises found from internet.
-    * SQL exercise 01
-    * SQL exercise 02
-    * SQL exercise 03
 
 * Projects
   * biodiversity
