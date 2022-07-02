@@ -247,7 +247,7 @@ SELECT *
 FROM movies
 WHERE year BETWEEN 1970 AND 1979;
 ```
-不包含 `G` 包含 `1979`
+不包含 `G`，包含 `1979`
     
 * **IS NULL** 和 **IS NOT NULL**
 
