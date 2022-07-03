@@ -335,6 +335,7 @@ ORDER BY dt;
 
 * 再看看每天登入的使用者有幾個
   * 第一個 subquery 是每日營收，第二個 subquery 是每天登入的使用者 (DAU)
+  * 當有兩個 `WITH` 子句的時候，用逗號隔開就好 `WITH name1 AS (query1), name2 AS (query2)`
 
 ```SQL
 WITH daily_revenue AS (
@@ -435,7 +436,7 @@ SELECT
 FROM gameplays AS g1
 LEFT JOIN gameplays AS g2
   ON g1.user_id = g2.user_id
-  AND date(g1.created_at) = date(DATETIME(g2.created_at, '-1 day'))
+  AND DATE(g1.created_at) = DATE(DATETIME(g2.created_at, '-1 day'))
 GROUP BY 1
 ORDER BY 1
 LIMIT 100;
@@ -451,7 +452,7 @@ SELECT
 FROM gameplays AS g1
 LEFT JOIN gameplays AS g2
   ON g1.user_id = g2.user_id
-  AND date(g1.created_at) = date(DATETIME(g2.created_at, '-1 day'))
+  AND DATE(g1.created_at) = DATE(DATETIME(g2.created_at, '-1 day'))
 GROUP BY 1
 ORDER BY 1
 LIMIT 100;
