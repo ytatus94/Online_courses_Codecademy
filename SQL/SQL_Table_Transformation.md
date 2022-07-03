@@ -14,7 +14,7 @@
 
 ### Example 1.
 在這個範例中有兩個表格 `flights` 和 `airports`
-* `flights` 表格有 `origin` 欄位
+* `flights` 表格有 `id`, `carrier`, `origin`, `distance`, `dep_date`, `dep_day_of_week`, `dep_month` 欄位
 * `airports` 表格有 `code`, `elevation`, `fac_type`, `faa_region` 欄位
 
 從 `flights` 表格中選擇 10 筆資料
