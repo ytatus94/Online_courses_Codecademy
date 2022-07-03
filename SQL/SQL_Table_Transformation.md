@@ -15,6 +15,7 @@
 ### Example 1.
 * `flights` 表格有 `origin` 欄位
 * `airports` 表格有 `code`, `elevation` 欄位
+
 從 `flights` 表格中選擇 10 筆資料
 
 ```SQL
