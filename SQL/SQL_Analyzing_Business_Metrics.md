@@ -43,7 +43,8 @@ LIMIT 100;
 SELECT DATE(ordered_at), COUNT(1)
 FROM orders
 GROUP BY 1
-ORDER BY 1;
+ORDER BY 1
+LIMIT 100;
 ```
 
 把 `orders` 和 `order_items` 兩個表格用 inner join 依照 `orders.id` 和 `order_items.order_id` 結合起來，顯示日期還有當日銷售總額，並將結果依照日期排序。
