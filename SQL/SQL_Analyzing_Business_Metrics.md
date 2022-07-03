@@ -87,7 +87,7 @@ ORDER BY 2 DESC;
 
 * 因為要計算銷售百分比，所以要知道全部的銷售總額。因此在分母的部分另寫一個 subquery 來計算全部的銷售總額
   * 用 100.0 變成浮點數來計算，才不會出問題
-  * `(SELECT SUM(amount_paid) FROM order_items)` 傳回的是一個數值
+  * `(SELECT SUM(amount_paid) FROM order_items)` 傳回的是一個數值，所以可以用來當分母
 
 ```SQL
 SELECT name, ROUND(SUM(amount_paid) /
