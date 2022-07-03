@@ -151,7 +151,8 @@ GROUP BY 1
 ORDER BY 1;
 ```
 
-計算每一樣商品重複的下訂單的比例
+計算每一樣商品重複的下訂單的比例，依照重複的下訂單的比例排序
+* 不是很懂為什麼是除以 COUNT(DISTINCT orders.delivered_to)`
 
 ```SQL
 SELECT name, ROUND(1.0 * COUNT(DISTINCT order_id) /
@@ -169,6 +170,7 @@ ORDER BY 2 DESC;
   * 例如： 2015-01-05 14:43:31
   * `DATE(timestamps)` 只顯示日期的部分
 * This will treat all rows as a single group, and return one row in the result set - the total count.
+  * 這邊 `COUNT(1)` 就和 `COUNT(*)` 是一樣的
 
 ```SQL
 SELECT COUNT(1)
