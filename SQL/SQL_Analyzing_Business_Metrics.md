@@ -133,7 +133,8 @@ SELECT
     WHEN 'tikka-masala'     THEN 'dinner'
     WHEN 'chicken-parm'     THEN 'dinner'
     ELSE 'other'
-  END AS category, ROUND(1.0 * SUM(amount_paid) /
+  END AS category, 
+  ROUND(1.0 * SUM(amount_paid) /
     (SELECT SUM(amount_paid) FROM order_items) * 100, 2) AS pct
 FROM order_items
 GROUP BY 1
