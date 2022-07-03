@@ -152,7 +152,7 @@ ORDER BY 1;
 ```
 
 計算每一樣商品重複的下訂單的比例，依照重複的下訂單的比例排序
-* 不是很懂為什麼是除以 COUNT(DISTINCT orders.delivered_to)`
+* 不是很懂為什麼是除以 `COUNT(DISTINCT orders.delivered_to)`
 
 ```SQL
 SELECT name, ROUND(1.0 * COUNT(DISTINCT order_id) /
