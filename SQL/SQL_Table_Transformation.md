@@ -189,18 +189,22 @@ FROM new_products;
 ### Example 2.
 
 ```SQL
-SELECT COUNT(*) FROM (
+SELECT COUNT(*)
+FROM (
   SELECT id, sale_price FROM order_items
   UNION ALL
-  SELECT id, sale_price FROM order_items_historic) AS a;
+  SELECT id, sale_price FROM order_items_historic
+) AS a;
 ```
 
 ```SQL
-SELECT id, AVG(a.sale_price) FROM (
+SELECT id, AVG(a.sale_price)
+FROM (
   SELECT id, sale_price FROM order_items
   UNION ALL
-  SELECT id, sale_price FROM order_items_historic) AS a 
-  GROUP BY 1;
+  SELECT id, sale_price FROM order_items_historic
+) AS a 
+GROUP BY 1;
 ```
 
 ### Example 3.
