@@ -209,13 +209,17 @@ END
 * **KPIs**: key performance indicators
   * Key Performance Indicators are high level health metrics for a business.
 * **Daily Revenue** is the sum of money made per day.
+  * 每一天的總收入 
 * **Daily Active Users (DAU)** are the number of unique users seen each day
+  * 每一天有多少個活躍使用者。同一個用戶可能一天登入很多次，但在計算 DAU 的時候只能算一個用戶 
   * Weekly Active Users (WAU) and Monthly Active Users (MAU) are in the same family.
 * **Daily Average Revenue Per Purchasing User (ARPPU)** is the average amount of money spent by purchasers each day.
   * Daily ARPPU = sum of revenue / number of purchasers per day.
+    * 每天所賺到的錢 / 總共多少個用戶花錢在這上面 
   * ARPPU increases if purchasers are spending more money.
 * **Daily Average Revenue Per User (ARPU)** is the average amount of money across all users.
   * Daily ARPU = revenue / number of players, per-day.
+    * 每天所賺到的錢 / 每天總共多少個用戶。可能有的用戶有花錢購買，有的用戶沒有購買，通通要算在內。
   * ARPU increases if more players are choosing to purchase, even if the purchase size stays consistent.
 * **1 Day Retention** is defined as the number of players from Day N who came back to play again on Day N+1.
 
