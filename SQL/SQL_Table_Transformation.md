@@ -10,9 +10,11 @@
 * The order of operations in a correlated subquery is as follows:
   * A row is processed in the outer query.
   * Then, for that particular row in the outer query, the subquery is executed.
-* Subqueries 可以放在 SELECT 裡面, FROM 裡面, WHERE 裡面 
+* Subqueries 可以放在 `SELECT` 裡面, `FROM` 裡面, `WHERE` 裡面 
 
 ### Example 1.
+* `flights` 表格有 `origin` 欄位
+* `airports` 表格有 `code`, `elevation` 欄位
 從 `flights` 表格中選擇 10 筆資料
 
 ```SQL
