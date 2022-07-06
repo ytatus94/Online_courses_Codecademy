@@ -39,11 +39,13 @@ FROM flights
 WHERE origin in (
     SELECT code 
     FROM airports 
-    WHERE elevation > 2000);
+    WHERE elevation > 2000
+);
 ```
 這兩個表格是獨立的，所以這是屬於 non-correlated subquery
 
 同理，選擇來自海拔小於 2000m 的機場的飛機
+* 這裡的 subquery 傳回的是海拔小於 2000m 的飛機場的 code 的列表，然後 `WHERE` 子句就要求 origin 要是在這個列表裡面的
 
 ```SQL
 SELECT * 
@@ -51,7 +53,8 @@ FROM flights
 WHERE origin in (
     SELECT code 
     FROM airports 
-    WHERE elevation < 2000);
+    WHERE elevation < 2000
+);
 ```
 
 ### Example 2.
@@ -63,7 +66,8 @@ FROM flights
 WHERE origin in (
     SELECT code 
     FROM airports 
-    WHERE fac_type = 'SEAPLANE_BASE');
+    WHERE fac_type = 'SEAPLANE_BASE'
+);
 ```
 選擇來自於機場的 Federal Aviation Administration region (`faa_region`) 是 `ASO` 的機場的飛機
 
@@ -73,13 +77,15 @@ FROM flights
 WHERE origin in (
     SELECT code 
     FROM airports 
-    WHERE faa_region = 'ASO');
+    WHERE faa_region = 'ASO'
+);
 ```
 
 ### Example 3.
 找某一個月份的某一個 weekday 的平均飛機數目
+* 所以要列出月份與 weekday
 
-1. 先在 inner query 中找出每天飛機的數目
+1. 先在 inner query 中找出每天飛機的數目 
 2. 計算 weekday 的平均數目
 
 ```SQL
@@ -127,7 +133,8 @@ FROM flights AS f
 WHERE distance > (
     SELECT AVG(distance)
     FROM flights
-    WHERE carrier = f.carrier);
+    WHERE carrier = f.carrier
+);
 ```
 同理，找出飛機的飛行距離比同公司的飛機平均飛行距離還小的
 
@@ -137,11 +144,13 @@ FROM flights AS f
 WHERE distance < (
     SELECT AVG(distance)
     FROM flights
-    WHERE carrier = f.carrier);
+    WHERE carrier = f.carrier
+);
 ```
 
 ### Example 5.
 假設 `flights.id` 是遞增的，那下面的方式可以顯示同一家航空公司的第幾架次班機。
+* 這裡的 subquery 傳回的是一個數值，所以可以對其加 1
 
 ```SQL
 SELECT carrier, id,
@@ -231,7 +240,8 @@ SELECT category FROM new_products;
 計算 `flights` 表格共有幾筆資料
 
 ```SQL
-SELECT COUNT(*) FROM flights;
+SELECT COUNT(*)
+FROM flights;
 ```
 
 ### Example 2.
@@ -240,7 +250,8 @@ SELECT COUNT(*) FROM flights;
 計算有幾筆資料的 `arr_time` 不是空的，且目的地是 `ATL`
 
 ```SQL
-SELECT COUNT(*) FROM flights
+SELECT COUNT(*)
+FROM flights
 WHERE arr_time IS NOT NULL AND destination = 'ATL';
 ```
 
@@ -250,6 +261,7 @@ WHERE arr_time IS NOT NULL AND destination = 'ATL';
 * 一定要有 **END**
 * **ELSE** 可有可不有，沒有時就是 NULL
 * 可以寫在 `SELECT` 裡面，aggregation function 裡面
+* `BETWEEN` 是數字的話，包含 `AND` 後面那個
 
 ```SQL
 SELECT
@@ -258,8 +270,8 @@ SELECT
         WHEN elevation BETWEEN 500 AND 1999 THEN 'Medium'
         WHEN elevation >= 2000 THEN 'High'
         ELSE 'Unknown'
-    END AS elevation_tier
-    , COUNT(*)
+    END AS elevation_tier,
+    COUNT(*)
 FROM airports
 GROUP BY 1;
 ```
@@ -271,11 +283,13 @@ SELECT
         WHEN elevation BETWEEN 250 AND 1749 THEN 'Medium'
         WHEN elevation >= 1750 THEN 'High'
         ELSE 'Unknown'
-    END AS elevation_tier
-    , COUNT(*)
+    END AS elevation_tier,
+    COUNT(*)
 FROM airports
 GROUP BY 1;
 ```
+
+* `CASE` 子句也可以放在 aggregation function 裡面
 
 ```SQL
 SELECT state, 
