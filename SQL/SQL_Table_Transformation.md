@@ -489,5 +489,3 @@ FROM baked_goods;
 ### 常見的 Advanced Functions
 
 * `CAST`, `COALESCE`, `CONVERT`, `IF`, `IIF`, `IFNULL`, `ISNULL`, `ISNUMERIC`, `NULLIF` 
-
-*
