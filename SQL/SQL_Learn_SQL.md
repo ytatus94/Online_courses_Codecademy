@@ -694,9 +694,9 @@ JOIN customers
   ON previous_query.customer_id = customers.customer_id;
 ```
 
-  如果有兩個以上的 CTE 時
+  * 如果有兩個以上的 CTE 時
 
-```
+```SQL
 WITH cte1 AS (
     SELECT ....
 ),
