@@ -344,7 +344,7 @@ GROUP BY origin;
 
 ```SQL
 SELECT state,
-       100.0 * sum(CASE WHEN elevation >= 2000 THEN 1 ELSE 0 END) / count(*) AS percentage_high_elevation_airports
+       100.0 * SUM(CASE WHEN elevation >= 2000 THEN 1 ELSE 0 END) / count(*) AS percentage_high_elevation_airports
 FROM airports
 GROUP BY state;
 ```
