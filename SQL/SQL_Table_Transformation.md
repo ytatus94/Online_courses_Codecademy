@@ -475,6 +475,8 @@ FROM baked_goods;
 ### 常見的 String Functions
 
 * `ASCII`, `CHAR`, `CONCAT`, `INSERT`, `LEFT`, `LEN`/`LENGTH`, `LOWER`, `REPLACE`, `REVERSE`, `RIGHT`, `SUBSTRING`, `UPPER`
+  * `LEFT(string, num)` 由 string 最左邊開始取 num 個字元, `RIGHT(string, num)` 由 string 最右邊開始取 num 個字元
+  * `SUBSTRING(string, num1, num2)` 從 string 最左邊算起的 num1 個字元開始, 取 num2 個字元
 
 ### 常見的 Numeric Functions
 
@@ -488,4 +490,8 @@ FROM baked_goods;
 
 ### 常見的 Advanced Functions
 
-* `CAST`, `COALESCE`, `CONVERT`, `IF`, `IIF`, `IFNULL`, `ISNULL`, `ISNUMERIC`, `NULLIF` 
+* `CAST`, `COALESCE`, `CONVERT`, `IF`/`IIF`, `IFNULL`, `ISNULL`, `ISNUMERIC`, `NULLIF`
+  *  `COALESCE(一個 list)` 傳回 list 中第一個非 Null 的元素
+  *  `IF(condition, value_if_true, value_if_false)`, `IIF(condition, value_if_true, value_if_false)` 是一樣的
+  *  `INULL(expression, value)` 如果 expression 是 Null 就傳回 value
+  *  ` NULLIF(expr1, expr2)` 如果 expr1 = expr2 傳回 Null 否則傳回 expr1
