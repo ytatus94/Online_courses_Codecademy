@@ -105,7 +105,7 @@ ORDER BY 1,2;
 ```
 找某一個月份的某一個 weekday 的平均的飛行距離.
 
-1. 先在 inner query 中找出每天飛機的飛行距離
+1. 先在 inner query 中找出每天飛機的總飛行距離
 2. 再用 1 的結果計算平均飛行距離，因為用 `dep_month` 和 `dep_day_of_week` 分群，所以會用分群後的資料來計算平均
 
 ```SQL
