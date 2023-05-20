@@ -459,11 +459,35 @@ FROM bakeries;
 用 `REPLACE(string,from_string,to_string)` 來取代字串
 
 ```SQL
-SELECT id, REPLACE(ingredients,'_',' ') AS item_ingredients
+SELECT id, REPLACE(ingredients, '_', ' ') AS item_ingredients
 FROM baked_goods;
 ```
 
 ```SQL
-SELECT REPLACE(ingredients,'enriched_',' ') AS item_ingredients
+SELECT REPLACE(ingredients, 'enriched_', ' ') AS item_ingredients
 FROM baked_goods;
 ```
+
+## 常見的 Functions
+
+* 不同的 SQL 可能支援不同的函數，函數名稱與參數也可能不同
+
+### 常見的 String Functions
+
+* `ASCII`, `CHAR`, `CONCAT`, `INSERT`, `LEFT`, `LEN`/`LENGTH`, `LOWER`, `REPLACE`, `REVERSE`, `RIGHT`, `SUBSTRING`, `UPPER`
+
+### 常見的 Numeric Functions
+
+* `ABS`, `AVG`, `CEILING`, `COUNT`, `COS`, `EXP`, `FLOOR`, `LOG`, `LOG10`, `MAX`, `MIN`, `PI`, `POWER`, `RAND`, `ROUND`, `SIGN`, `SIN`, `SQRT`, `SUM`
+
+### 常見的 Datetime Functions
+
+* 日期函數在不同的 SQL 差很多
+  * MySQL: `DATE`, `DATE_ADD`, `DATE_SUB`, `DATEDIFF`, `DAYOFMONTH`, `DAYOFWEEK`, `DAYOFYEAR`, `HOUR`, `MINUTE`, `MONTH`, `NOW`, `QUARTER`, `SECOND`, `TIME`, `TIMEDIFF`, `TIMESTAMP`, `WEEK`, `WEEKDAY`, `WEEKOFYEAR`, `YEAR`
+  * SQL server: `DAY`, `DATEADD`, `DATEDIFF`, `MONTH`, `YEAR`
+
+### 常見的 Advanced Functions
+
+* `CAST`, `COALESCE`, `CONVERT`, `IF`, `IIF`, `IFNULL`, `ISNULL`, `ISNUMERIC`, `NULLIF` 
+
+*
