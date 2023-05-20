@@ -116,7 +116,7 @@ FROM (
     SELECT dep_month,
            dep_day_of_week,
            dep_date,
-           sum(distance) AS flight_distance
+           SUM(distance) AS flight_distance
     FROM flights
     GROUP BY 1,2,3
 ) a
