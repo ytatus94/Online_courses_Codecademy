@@ -478,7 +478,7 @@ FROM baked_goods;
 
 ### 常見的 Numeric Functions
 
-* `ABS`, `AVG`, `CEILING`, `COUNT`, `COS`, `EXP`, `FLOOR`, `LOG`, `LOG10`, `MAX`, `MIN`, `PI`, `POWER`, `RAND`, `ROUND`, `SIGN`, `SIN`, `SQRT`, `SUM`
+* `ABS`, `AVG`, `CEILING`, `COUNT`, `COS`, `EXP`, `FLOOR`, `LOG`, `LOG10`, `MAX`, `MIN`, `PI`, `POWER`, `RAND`, `ROUND`, `SIGN`, `SIN`, `SQRT`, `STDDEV`/`STDEV`, `SUM`
 
 ### 常見的 Datetime Functions
 
