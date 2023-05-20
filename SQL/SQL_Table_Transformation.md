@@ -494,4 +494,4 @@ FROM baked_goods;
   *  `COALESCE(一個 list)` 傳回 list 中第一個非 Null 的元素
   *  `IF(condition, value_if_true, value_if_false)`, `IIF(condition, value_if_true, value_if_false)` 是一樣的
   *  `INULL(expression, value)` 如果 expression 是 Null 就傳回 value
-  *  ` NULLIF(expr1, expr2)` 如果 expr1 = expr2 傳回 Null 否則傳回 expr1
+  *  `NULLIF(expr1, expr2)` 如果 expr1 = expr2 傳回 Null 否則傳回 expr1
