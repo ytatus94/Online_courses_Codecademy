@@ -50,7 +50,7 @@ WHERE origin IN (
 ```SQL
 SELECT * 
 FROM flights 
-WHERE origin in (
+WHERE origin IN (
     SELECT code 
     FROM airports 
     WHERE elevation < 2000
