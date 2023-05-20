@@ -61,7 +61,8 @@ SELECT * FROM table_name;
 選擇特定欄位: 列出欄位名稱
 
 ```SQL
-SELECT column_1, column_2, column_3 FROM table_name;
+SELECT column_1, column_2, column_3
+FROM table_name;
 ```
 
 * **UPDATE** edits a row in a table.
@@ -71,7 +72,8 @@ UPDATE celebs
 SET age = 22
 WHERE id = 1;
 
-SELECT * FROM celebs;
+SELECT *
+FROM celebs;
 ```
 
 * **ALTER TABLE** changes an existing table.
@@ -85,7 +87,8 @@ column_1 data_type;
 ALTER TABLE celebs ADD COLUMN
 twitter_handle TEXT;
 
-SELECT * FROM celebs;
+SELECT *
+FROM celebs;
 ```
 
 * **DELETE FROM** deletes rows from a table.
@@ -97,11 +100,18 @@ WHERE id = 4;
 
 DELETE FROM celebs
 WHERE twitter_handle IS NULL;
-SELECT * FROM celebs;
+SELECT *
+FROM celebs;
 ```
-在 SQL 中，空值是 `NULL`，可以用 `IS NULL` 和 `IS NOT NULL` 來判斷是否是空值
 
 * Constrains
+  * 在建立表格時可以為每個欄位加上 constrains
+    * 是 `PRIMARY KEY` 或是 `FOREIGN KEY`
+      * `PRIMARY KEY` is a column that serves a unique identifier for the rows in the table.
+      * `FOREIGN KEY` is a column that contains the primary key to another table.
+    * 不允許空值 `NOT NULL`
+    * 有預設值 `DEFAULT 'default_value'`
+  * 在 SQL 中，空值是 `NULL`，可以用 `IS NULL` 和 `IS NOT NULL` 來判斷是否是空值
 
 ```SQL
 CREATE TABLE awards (
@@ -120,6 +130,12 @@ CREATE TABLE celebs (
 );
 ```
 
+* **DROP TABLE** removes a table in a database
+
+```SQL
+DROP TABLE table_name;
+```
+
 ## Queries
 
 * **SELECT** is the clause we use every time we want to query information from a database.
@@ -130,7 +146,8 @@ FROM table_name;
 ```
 
 ```SQL
-SELECT * FROM movies;
+SELECT *
+FROM movies;
 ```
 
 ```SQL
@@ -157,6 +174,7 @@ FROM movies;
 ```
 
 * **DISTINCT** return unique values.
+  * **DISTINCT** 只對後面一個欄位起作用 
 
 ```SQL
 SELECT tools 
@@ -237,6 +255,8 @@ FROM movies
 WHERE year BETWEEN 1990 AND 1999;
 ```
 不包含 `J`，包含 `1999`
+* `BETWEEN 'A' AND 'J'` 會選出 name 以 A, B, C, D, E, F, G, H, I 開頭的 (沒有 J 開頭的)
+* `BETWEEN 1990 AND 1999` 會選出 year 是 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999 的
     
 ```SQL
 SELECT *
@@ -347,6 +367,8 @@ LIMIT 3;
 
 * **CASE** creates different outputs.
   * `CASE` 是 SQL 的 if-else-then 敘述
+    * `CASE-WHEN-THEN-ELSE-END`
+    * 可以放多個 `WHEN-THEN`，而且每個 `WHEN-THEN` 之間沒有逗號
   * 通常放在 `SELECT` 子句裡面
   * 記得要加上 `END` 然後可以 `AS` 成某個變數，供之後使用
 
@@ -426,6 +448,8 @@ FROM fake_apps;
   
 * **GROUP BY** is a clause used with aggregate functions to combine data from one or more columns.
   * `GROUP BY` 放在 `WHERE` 之後，`ORDER BY`, `LIMIT` 之前
+  * 有 aggregate functions 就一定要有 `GROUP BY`
+  * 有 `GROUP BY` 就一定要有 aggregate functions.
   
 ```SQL
 SELECT year, AVG(imdb_rating)
@@ -474,7 +498,7 @@ GROUP BY 1, 2;
 `category` 是 1，`price` 是 2，`AVG(downloads)` 是 3
 
 * **HAVING** limit the results of a query based on an aggregate property.
-  * `HAVING` 其實和 `WHERE` 功能一樣，差別在於一般的條件用 `WHERE` ，有 aggregation function 的條件用 `HAVING`
+  * `HAVING` 其實和 `WHERE` 功能一樣，差別在於一般的條件用 `WHERE` ，有 aggregate function 的條件用 `HAVING`
   * `HAVING` 放在 `GROUP BY` 之後，`ORDER BY`, `LIMIT` 之前
   
 ```SQL
@@ -498,6 +522,11 @@ HAVING COUNT(*) > 9;
 * **JOIN** will combine rows from different tables if the join condition is true.
   * 兩個表個中的欄位名稱可能會重複，用 `table_name.column_name` 可以指明是哪個表格的欄位
   * 預設 `JOIN` 就指的是 *inner join*，只有兩個表格都有的列才會結合再一起
+    * `JOIN` 就是 inner join
+    * outer join 有三種
+      * `LEFT JOIN` = `LEFT OUTER JOIN`
+      * `RIGHT JOIN` = `RIGHT OUTER JOIN`
+      * `FULL JOIN` = `FULL OUTER JOIN`
 
 ```SQL
 SELECT *
@@ -617,6 +646,8 @@ GROUP BY months.month;
 
 * **UNION** stacks one dataset on top of another.
   * 將兩表格上下疊再一起，要做 `UNION` 時，兩個表格的欄位要一樣
+  * **UNION** 會把重複的 row 刪掉，只會保留一個 row
+  * **UNION ALL** 不會把重複的 row 刪掉，會全部保留
 
 ```SQL
 SELECT *
@@ -636,6 +667,7 @@ FROM online;
 
 * **WITH** allows us to define one or more temporary tables that can be used in the final query.
   * `WITH` 內先做另一個查詢，產生一個暫時的表格。可以將暫時的表格與其他表格做 `JOIN` 再做其他查詢
+  * `WITH` 子句叫做 common table expression (CTE)
 
 ```SQL
 WITH previous_results AS (
@@ -660,4 +692,15 @@ SELECT customers.customer_name, previous_query.subscriptions
 FROM previous_query
 JOIN customers
   ON previous_query.customer_id = customers.customer_id;
+```
+
+  如果有兩個以上的 CTE 時
+
+```
+WITH cte1 AS (
+    SELECT ....
+),
+cte2 AS (
+    SELECT ...
+)
 ```
