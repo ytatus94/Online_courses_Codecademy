@@ -203,10 +203,10 @@ END
 ```
 
 * Data aggregation is the grouping of data in summary form.
-* Daily Count is the count of orders in a day.
-* Daily Revenue Count is the revenue on orders per day.
-* Product Sum is the total revenue of a product.
-* Reorder Rate is the ratio of the total number of orders to the number of people making orders.
+* **Daily Count** is the count of orders in a day.
+* **Daily Revenue** Count is the revenue on orders per day.
+* **Product Sum** is the total revenue of a product.
+* **Reorder Rate** is the ratio of the total number of orders to the number of people making orders.
 
 
 ## Common Metrics
