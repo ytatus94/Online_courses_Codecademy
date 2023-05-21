@@ -6,7 +6,10 @@
 在這個範例中有兩個表格 `orders` 和 `order_items`
 
 * `orders` 有 `id`, `ordered_at`, `delivered_at`, `delivered_to` 四個欄位
+  * `id` 是 Primary key 
 * `order_items` 有 `id`, `order_id`, `name`, `amount_paid` 四個欄位
+  * `id` 是 Primary key, `order_id` 是 Foreign key
+  * 同一個 `order_id` 可能同時訂購了許多不同的商品, i.e 有許多不同的 `id` 
 
 從 `orders` 表格中選擇全部欄位，依照 `id` 排序後只顯示前 100 列
 
