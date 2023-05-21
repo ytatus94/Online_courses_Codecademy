@@ -9,7 +9,7 @@
   * `id` 是 Primary key 
 * `order_items` 有 `id`, `order_id`, `name`, `amount_paid` 四個欄位
   * `id` 是 Primary key, `order_id` 是 Foreign key
-  * 同一個 `order_id` 可能同時訂購了許多不同的商品, i.e 有許多不同的 `id` 
+  * 同一個 `order_id` 可能同時訂購了許多不同的商品, i.e 有許多不同的 `name` 
 
 從 `orders` 表格中選擇全部欄位，依照 `id` 排序後只顯示前 100 列
 
@@ -147,6 +147,8 @@ ORDER BY 2 DESC;
 ```
 
 計算每一樣商品的銷售數量，依照商品名稱排序
+* 一個 `order_id` 可能同時訂購了許多不同的商品 (i.e. 有很多 name)
+  * 假設每一個 (`order_id`, `name`) 只會出現一次
 
 ```SQL
 SELECT name, COUNT(DISTINCT order_id)
