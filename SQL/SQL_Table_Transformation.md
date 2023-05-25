@@ -485,7 +485,10 @@ FROM baked_goods;
 ### 常見的 Datetime Functions
 
 * 日期函數在不同的 SQL 差很多
-  * MySQL: `DATE`, `DATE_ADD`, `DATE_SUB`, `DATEDIFF`, `DAYOFMONTH`, `DAYOFWEEK`, `DAYOFYEAR`, `HOUR`, `MINUTE`, `MONTH`, `NOW`, `QUARTER`, `SECOND`, `TIME`, `TIMEDIFF`, `TIMESTAMP`, `WEEK`, `WEEKDAY`, `WEEKOFYEAR`, `YEAR`
+  * MySQL: `DATE`, `DATE_ADD`, `DATE_SUB`, `DATE_FORMAT`, `DATEDIFF`, `DAYOFMONTH`, `DAYOFWEEK`, `DAYOFYEAR`, `HOUR`, `MINUTE`, `MONTH`, `NOW`, `QUARTER`, `SECOND`, `TIME`, `TIMEDIFF`, `TIMESTAMP`, `WEEK`, `WEEKDAY`, `WEEKOFYEAR`, `YEAR`
+    * `DATE_ADD(date, INTERVAL value interval)`, `DATE_SUB(date, INTERVAL value interval)`
+      * interval 可以是 YEAR, QUARTER, MONTH, WEEK, DAY, HOUR, MINUTE, SECOND 等等 
+    * `DATEDIFF(date1, date2)`
   * SQL server: `DAY`, `DATEADD`, `DATEDIFF`, `MONTH`, `YEAR`
 
 ### 常見的 Advanced Functions
