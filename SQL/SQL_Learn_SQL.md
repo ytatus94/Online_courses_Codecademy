@@ -24,6 +24,13 @@ CREATE TABLE celebs (
 );
 ```
 
+* 建立暫時的表格
+```SQL
+CREATE TEMPORARY TABLE table_name (
+    SELECT statements
+);
+```
+
 * **INSERT INTO** adds a new row to a table.
   
 ```SQL
