@@ -400,6 +400,7 @@ FROM movies;
 ## Aggregate Functions
 
 * **COUNT()**: count the number of rows
+  * NULL 的會被忽略，不列入 `COUNT()` 計算 
 
 ```SQL
 SELECT COUNT(*)
